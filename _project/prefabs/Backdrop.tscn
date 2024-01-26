@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsxke5nwcoelo"]
+
+[ext_resource type="PackedScene" uid="uid://dok4nrdi1dex5" path="res://assets/models/backdrop.gltf" id="1_uylol"]
+
+[node name="Backdrop" type="Node3D"]
+
+[node name="backdrop" parent="." instance=ExtResource("1_uylol")]
+
+[node name="backdrop" parent="backdrop" index="0"]
+cast_shadow = 0
+
+[editable path="backdrop"]

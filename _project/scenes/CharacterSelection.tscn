@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://b1s17awm684mc"]
+
+[ext_resource type="Script" path="res://_project/scripts/character_selection_scene.gd" id="1_8y1u5"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="1_61fvt"]
+[ext_resource type="Environment" uid="uid://bwksjlvtegj8w" path="res://_project/CharacterSelectionEnvironment.tres" id="1_crchb"]
+[ext_resource type="PackedScene" uid="uid://bsxke5nwcoelo" path="res://_project/prefabs/Backdrop.tscn" id="2_h7px5"]
+[ext_resource type="LightmapGIData" uid="uid://b65a6opakqkgo" path="res://_project/scenes/CharacterSelection/CharacterSelection.lmbake" id="4_yo12h"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_87fbr"]
+
+[node name="CharacterSelection" type="Node3D"]
+script = ExtResource("1_8y1u5")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_crchb")
+
+[node name="PhantomCamera3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.829037, 0.559193, 0, -0.559193, 0.829037, 0, 3.83868, 5.67255)
+script = ExtResource("1_61fvt")
+priority_override = false
+priority = 0
+follow_mode = 0
+look_at_mode = 0
+tween_parameters = null
+tween_on_load = true
+inactive_update_mode = 0
+camera_3D_resource = null
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.826118, -0.336784, 0.45178, 0, 0.801744, 0.597668, -0.563497, -0.493744, 0.662335, 0, 0, 0)
+light_color = Color(0.913725, 0.756863, 0.611765, 1)
+light_energy = 2.0
+shadow_enabled = true
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.564065, 0)
+gi_mode = 2
+mesh = SubResource("SphereMesh_87fbr")
+
+[node name="Backdrop" parent="." instance=ExtResource("2_h7px5")]
+
+[node name="LightmapGI" type="LightmapGI" parent="."]
+quality = 0
+light_data = ExtResource("4_yo12h")
+
+[node name="PositionRoot" type="Node3D" parent="."]

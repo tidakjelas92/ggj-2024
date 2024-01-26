@@ -1,0 +1,26 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://c86q7q4wk82va"
+path="res://.godot/imported/CharacterSelection.exr-d4d05784d4417df967a02ae3bf66b675.ctexarray"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://_project/scenes/CharacterSelection/CharacterSelection.exr"
+dest_files=["res://.godot/imported/CharacterSelection.exr-d4d05784d4417df967a02ae3bf66b675.ctexarray"]
+
+[params]
+
+compress/mode=3
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=1
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=1
+slices/vertical=1

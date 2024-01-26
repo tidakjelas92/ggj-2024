@@ -1,3 +1,28 @@
-[gd_scene format=3 uid="uid://bqvidaair0ubr"]
+[gd_scene load_steps=6 format=3 uid="uid://bqvidaair0ubr"]
+
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_c8xt1"]
+[ext_resource type="Script" path="res://_project/scripts/main_scene.gd" id="1_gnll8"]
+[ext_resource type="Script" path="res://_project/scripts/smooth_follow_3d.gd" id="2_4kq7x"]
+[ext_resource type="PackedScene" uid="uid://b1s17awm684mc" path="res://_project/scenes/CharacterSelection.tscn" id="3_d80lw"]
+[ext_resource type="PackedScene" uid="uid://dbgppvanvatqw" path="res://_project/scenes/Game.tscn" id="3_uhrqu"]
 
 [node name="Main" type="Node3D"]
+script = ExtResource("1_gnll8")
+_character_selection_prefab = ExtResource("3_d80lw")
+_game_prefab = ExtResource("3_uhrqu")
+
+[node name="PhantomCameraHost" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.829037, 0.559193, 0, -0.559193, 0.829037, 0, 3.83868, 5.67255)
+fov = 74.7775
+
+[node name="PhantomCameraHost" type="Node" parent="PhantomCameraHost"]
+script = ExtResource("1_c8xt1")
+
+[node name="MainCamera" type="Camera3D" parent="."]
+current = true
+fov = 35.0
+
+[node name="SmoothFollow3D" type="Node" parent="MainCamera" node_paths=PackedStringArray("_source")]
+script = ExtResource("2_4kq7x")
+_source = NodePath("../../PhantomCameraHost")
+_lerp_speed = 20.0
