@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=4 format=3 uid="uid://c72kv4t20p5wo"]
+
+[ext_resource type="Script" path="res://_project/scripts/weapon_resource.gd" id="1_cnnii"]
+[ext_resource type="PackedScene" uid="uid://c36gkr54axi6f" path="res://_project/prefabs/pickupable_weapons/StopSign.tscn" id="1_m0fb3"]
+[ext_resource type="PackedScene" uid="uid://kdlhrumn1ttn" path="res://_project/prefabs/weapons/StopSign.tscn" id="2_mjyl3"]
+
+[resource]
+script = ExtResource("1_cnnii")
+id = &"stop-sign"
+pickupable_prefab = ExtResource("1_m0fb3")
+prefab = ExtResource("2_mjyl3")
+light_damage = 0.5
+heavy_damage = 5.0

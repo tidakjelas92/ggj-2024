@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=4 format=3 uid="uid://va6g7tjb8mag"]
+
+[ext_resource type="Script" path="res://_project/scripts/weapon_resource.gd" id="1_ilbkf"]
+[ext_resource type="PackedScene" uid="uid://c56gr0df60loa" path="res://_project/prefabs/pickupable_weapons/Grenade.tscn" id="1_wly0d"]
+[ext_resource type="PackedScene" uid="uid://nb34k7qdq1cy" path="res://_project/prefabs/weapons/Grenade.tscn" id="2_1u8sv"]
+
+[resource]
+script = ExtResource("1_ilbkf")
+id = &"grenade"
+pickupable_prefab = ExtResource("1_wly0d")
+prefab = ExtResource("2_1u8sv")

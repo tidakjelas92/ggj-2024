@@ -8,18 +8,24 @@ enum State { STARTING, PLAYING, DONE }
 @export var _pcam: PhantomCamera3D
 @export var _players_parent: Node
 @export var _respawn_points: Array[Node3D]
+@export var _weapon_spawner_timer: Timer
 var max_lives: int
 var respawn_time: float
+var weapon_spawn_interval: float
+var weapon_spawn_radius: float
 var starting_time: float = 3
 
 var _players: Array[Player]
 var _state: State
 var _current_starting_time: float
 var _winner: int = -1
+var _weapon_picker: RandomPicker
 
 
 func _ready() -> void:
 	_current_starting_time = starting_time
+	_weapon_picker = RandomPicker.new()
+	_weapon_spawner_timer.timeout.connect(_spawn_random_weapon)
 
 
 func _process(delta: float) -> void:
@@ -36,6 +42,7 @@ func _on_starting(delta: float) -> void:
 	_current_starting_time -= delta
 	if _current_starting_time <= 0:
 		_state = State.PLAYING
+		_weapon_spawner_timer.start()
 
 
 func _on_playing(delta: float) -> void:
@@ -99,19 +106,21 @@ func initialize(player_selections: Dictionary) -> void:
 
 		var move_closure: Callable = func(vec: Vector2) -> void: _move_player(key, vec)
 		var look_closure: Callable = func(vec: Vector2) -> void: _look_player(key, vec)
-		var decide_replay_closure: Callable = func() -> void: _decide_replay(key)
 		var decide_quit_closure: Callable = func() -> void: _decide_quit(key)
 		var light_attack_closure: Callable = func() -> void: _light_attack(key)
 		var heavy_attack_closure: Callable = func() -> void: _heavy_attack(key)
+		var confirm_closure: Callable = func() -> void: _on_confirm(key)
 
 		var player_input: PlayerInput = Controller.get_player_input(key).get_ref()
 		player_input.move.connect(move_closure)
 		player_input.look.connect(look_closure)
-		player_input.confirm.connect(decide_replay_closure)
+		player_input.confirm.connect(confirm_closure)
 		player_input.cancel.connect(decide_quit_closure)
 		player_input.attack_light.connect(light_attack_closure)
 		player_input.attack_heavy.connect(heavy_attack_closure)
 
+	_weapon_spawner_timer.wait_time = weapon_spawn_interval
+	_weapon_picker.set_pool(Data.weapon_library.weapons)
 	_start_game()
 
 
@@ -136,6 +145,7 @@ func _exit() -> void:
 
 func _finish_game() -> void:
 	assert(_winner != -1, "Winner has not been set!")
+	_weapon_spawner_timer.stop()
 
 
 func _get_player(id: int) -> Player:
@@ -202,9 +212,35 @@ func _start_game() -> void:
 	_state = State.STARTING
 
 
+func _spawn_random_weapon() -> void:
+	var theta: float = randf_range(-PI, PI)
+	var distance: float = randf_range(0, weapon_spawn_radius)
+	var height: float = 10
+	var spawn_position: Vector3 = Vector3(cos(theta) * distance, height, sin(theta) * distance)
+
+	var weapon_resource: WeaponResource = _weapon_picker.pick()
+	var pickupable_weapon: PickupableWeapon = (
+		weapon_resource.pickupable_prefab.instantiate() as PickupableWeapon
+	)
+	pickupable_weapon.id = weapon_resource.id
+	add_child(pickupable_weapon)
+	pickupable_weapon.global_position = spawn_position
+
+
 func _unregister_camera_follow(id: int) -> void:
 	var player: Player = _get_player(id)
 	_pcam.erase_follow_group_node(player.character)
+
+
+func _on_confirm(id: int) -> void:
+	match _state:
+		State.STARTING:
+			return
+		State.PLAYING:
+			var player: Player = _get_player(id)
+			player.pickup()
+		State.DONE:
+			_decide_replay(id)
 
 
 func _decide_quit(id: int) -> void:

@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://c36gkr54axi6f"]
+
+[ext_resource type="PackedScene" uid="uid://bcrhg3r8tjomm" path="res://assets/models/stop-sign.gltf" id="1_2jmrf"]
+[ext_resource type="Script" path="res://_project/scripts/pickupable_weapon.gd" id="1_bsve3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xlesb"]
+radius = 0.04
+height = 1.51005
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wg82a"]
+size = Vector3(0.48, 0.487, 0.065)
+
+[node name="StopSign" type="RigidBody3D" node_paths=PackedStringArray("_meshes")]
+mass = 0.2
+continuous_cd = true
+script = ExtResource("1_bsve3")
+_meshes = [NodePath("stop-sign/Cylinder"), NodePath("stop-sign/Circle")]
+
+[node name="stop-sign" parent="." instance=ExtResource("1_2jmrf")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75282, 0)
+shape = SubResource("CapsuleShape3D_xlesb")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27514, 0)
+shape = SubResource("BoxShape3D_wg82a")
+
+[editable path="stop-sign"]

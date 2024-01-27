@@ -7,6 +7,8 @@ extends Node
 @export var _min_players: int = 2
 @export var _max_lives: int = 5
 @export var _respawn_time: float = 10
+@export var _weapon_spawn_radius: float = 10
+@export var _weapon_spawn_interval: float = 5
 
 var _active_scene: Node
 
@@ -38,5 +40,7 @@ func _load_game_scene(player_selections: Dictionary) -> void:
 	game_scene.exit.connect(_load_character_selection_scene)
 	game_scene.max_lives = _max_lives
 	game_scene.respawn_time = _respawn_time
+	game_scene.weapon_spawn_radius = _weapon_spawn_radius
+	game_scene.weapon_spawn_interval = _weapon_spawn_interval
 	game_scene.initialize(player_selections)
 	_active_scene = game_scene

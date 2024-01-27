@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://g7y4362f5qqr" path="res://assets/textures/arena_normal.png" id="2_o14yp"]
 
 [resource]
+cull_mode = 2
 albedo_texture = ExtResource("1_q6434")
 roughness = 0.2
 normal_texture = ExtResource("2_o14yp")

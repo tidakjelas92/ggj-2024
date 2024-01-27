@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=4 format=3 uid="uid://cuexlywtgrdbf"]
+
+[ext_resource type="PackedScene" uid="uid://cr42kwx52eryh" path="res://_project/prefabs/pickupable_weapons/Nuke.tscn" id="1_dmbti"]
+[ext_resource type="Script" path="res://_project/scripts/weapon_resource.gd" id="1_rapo2"]
+[ext_resource type="PackedScene" uid="uid://bml14gedaelft" path="res://_project/prefabs/weapons/Nuke.tscn" id="2_o0iws"]
+
+[resource]
+script = ExtResource("1_rapo2")
+id = &"nuke"
+pickupable_prefab = ExtResource("1_dmbti")
+prefab = ExtResource("2_o0iws")

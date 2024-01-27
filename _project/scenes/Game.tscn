@@ -6,11 +6,12 @@
 [ext_resource type="LightmapGIData" uid="uid://dvitw0eqv3vna" path="res://_project/scenes/Game/Game.lmbake" id="4_1jmjs"]
 [ext_resource type="PackedScene" uid="uid://vqqnqi5y2loe" path="res://_project/prefabs/Arena.tscn" id="6_2y6li"]
 
-[node name="Game" type="Node3D" node_paths=PackedStringArray("_pcam", "_players_parent", "_respawn_points")]
+[node name="Game" type="Node3D" node_paths=PackedStringArray("_pcam", "_players_parent", "_respawn_points", "_weapon_spawner_timer")]
 script = ExtResource("1_wu6qs")
 _pcam = NodePath("PhantomCamera3D")
 _players_parent = NodePath("Players")
 _respawn_points = [NodePath("RespawnPoints/0"), NodePath("RespawnPoints/1"), NodePath("RespawnPoints/2"), NodePath("RespawnPoints/3")]
+_weapon_spawner_timer = NodePath("WeaponSpawnerTimer")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_xjoun")
@@ -70,3 +71,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.17741, 0, 5.22894)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.29653, 0, 2.45101)
 
 [node name="Center" type="Node3D" parent="."]
+
+[node name="WeaponSpawnerTimer" type="Timer" parent="."]

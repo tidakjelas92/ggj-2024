@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bml14gedaelft"]
+
+[ext_resource type="PackedScene" uid="uid://bcrhg3r8tjomm" path="res://assets/models/stop-sign.gltf" id="1_rweyn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xlesb"]
+radius = 0.245
+height = 1.51005
+
+[node name="StopSign" type="Area3D"]
+monitorable = false
+
+[node name="stop-sign" parent="." instance=ExtResource("1_rweyn")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75282, 0)
+shape = SubResource("CapsuleShape3D_xlesb")
