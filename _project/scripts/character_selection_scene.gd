@@ -131,6 +131,8 @@ func _on_player_disconnect(id: int) -> void:
 	_despawn_player_character(id)
 	player.character_index = 0
 
+	_state = State.SELECTING
+
 
 func _on_player_connect(id: int) -> void:
 	var player: PlayerSelection = _get_player(id)
@@ -139,6 +141,7 @@ func _on_player_connect(id: int) -> void:
 
 	print("player %d is connected" % id)
 	player.state = PlayerSelection.State.CONNECTED
+	_state = State.SELECTING
 
 
 func _on_confirm(id: int) -> void:
