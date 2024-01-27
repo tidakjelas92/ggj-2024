@@ -3,7 +3,6 @@ extends Node
 
 signal start
 
-@export var _character_prefab: PackedScene
 @export var _character_library: Array[CharacterResource]
 @export var _position_root: Node3D
 @export var _slots_parent: Node3D
