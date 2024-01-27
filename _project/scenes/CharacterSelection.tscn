@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://_project/scripts/character_selection_scene.gd" id="1_8y1u5"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="1_61fvt"]
 [ext_resource type="PackedScene" uid="uid://bsxke5nwcoelo" path="res://_project/prefabs/Backdrop.tscn" id="2_h7px5"]
+[ext_resource type="Environment" uid="uid://bwksjlvtegj8w" path="res://_project/scenes/CharacterSelection/character_selection_environment.tres" id="2_od6mb"]
 [ext_resource type="LightmapGIData" uid="uid://b65a6opakqkgo" path="res://_project/scenes/CharacterSelection/CharacterSelection.lmbake" id="4_yo12h"]
-[ext_resource type="Environment" uid="uid://1n130jbr0ire" path="res://_project/scenes/Game/game_environment.tres" id="7_0srss"]
 
 [node name="CharacterSelection" type="Node3D" node_paths=PackedStringArray("_position_root", "_slots_parent", "_player_selections_parent")]
 script = ExtResource("1_8y1u5")
@@ -14,7 +14,7 @@ _player_selections_parent = NodePath("Players")
 _step = 2.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("7_0srss")
+environment = ExtResource("2_od6mb")
 
 [node name="PhantomCamera3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.829037, 0.559193, 0, -0.559193, 0.829037, 0, 3.83868, 5.67255)
