@@ -9,5 +9,10 @@ func _ready() -> void:
 	player_0.confirm.connect(_exit)
 
 
+func initialize(player_selections: Dictionary) -> void:
+	print("game scene iniitalize!")
+	print(player_selections)
+
+
 func _exit() -> void:
 	exit.emit()

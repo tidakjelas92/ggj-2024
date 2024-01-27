@@ -1,7 +1,9 @@
 class_name CharacterSelectionScene
 extends Node
 
-signal start
+signal start(Dictionary)
+
+enum State { SELECTING, COUNTING, STARTING }
 
 @export var _character_library: Array[CharacterResource]
 @export var _position_root: Node3D
@@ -9,11 +11,37 @@ signal start
 @export var _player_selections_parent: Node
 ## Range between characters in world coords
 @export var _step: float = 1
+@export var _countdown: int = 5
+var _state: State = State.SELECTING
 var _player_slots: Array[Slot]
 var _player_selections: Array[PlayerSelection]
+var _min_players: int
+var _current_countdown: float = 0
 
 
-func initialize(max_players: int) -> void:
+func _process(delta: float) -> void:
+	match _state:
+		State.SELECTING:
+			if _is_ready_to_start():
+				_current_countdown = _countdown
+				_state = State.COUNTING
+
+		State.COUNTING:
+			if !_is_ready_to_start():
+				_state = State.SELECTING
+				return
+
+			_current_countdown -= delta
+			print("Countdown: %.2f" % _current_countdown)
+			if _current_countdown <= 0:
+				_state = State.STARTING
+
+		State.STARTING:
+			_start_game()
+
+
+func initialize(min_players: int, max_players: int) -> void:
+	_min_players = min_players
 	var max_range: float = (max_players - 1) * _step
 	_player_slots.resize(max_players)
 	for i in range(max_players):
@@ -51,8 +79,16 @@ func initialize(max_players: int) -> void:
 		_player_selections[i] = player
 
 
-func _start_game() -> void:
-	start.emit()
+func _compile_player_selections() -> Dictionary:
+	var result: Dictionary = {}
+	for i in range(_player_selections.size()):
+		var player: PlayerSelection = _player_selections[i]
+		if player.state != PlayerSelection.State.READY:
+			continue
+		var character: CharacterResource = _get_character_resource(player.character_index)
+		result[i] = character.id
+
+	return result
 
 
 func _get_player(id: int) -> PlayerSelection:
@@ -63,6 +99,26 @@ func _get_player(id: int) -> PlayerSelection:
 func _get_character_resource(id: int) -> CharacterResource:
 	assert(id >= 0 && id <= _player_selections.size(), "id %d is out of bounds!" % id)
 	return _character_library[id]
+
+
+func _is_ready_to_start() -> bool:
+	var ready_count: int = 0
+	var total_count: int = 0
+	for i in range(_player_selections.size()):
+		var player: PlayerSelection = _player_selections[i]
+		match player.state:
+			PlayerSelection.State.DISCONNECTED:
+				continue
+			PlayerSelection.State.READY:
+				total_count += 1
+				ready_count += 1
+			_:
+				total_count += 1
+
+	if ready_count < _min_players:
+		return false
+
+	return ready_count == total_count
 
 
 func _on_player_disconnect(id: int) -> void:
@@ -159,3 +215,8 @@ func _despawn_player_character(id: int) -> void:
 
 	var character: Node3D = slot.take()
 	character.queue_free()
+
+
+func _start_game() -> void:
+	print("Character selection start game")
+	start.emit(_compile_player_selections())
