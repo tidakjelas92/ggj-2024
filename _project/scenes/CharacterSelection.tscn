@@ -1,26 +1,20 @@
-[gd_scene load_steps=11 format=3 uid="uid://b1s17awm684mc"]
+[gd_scene load_steps=6 format=3 uid="uid://b1s17awm684mc"]
 
 [ext_resource type="Script" path="res://_project/scripts/character_selection_scene.gd" id="1_8y1u5"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="1_61fvt"]
-[ext_resource type="Environment" uid="uid://bwksjlvtegj8w" path="res://_project/CharacterSelectionEnvironment.tres" id="1_crchb"]
 [ext_resource type="PackedScene" uid="uid://bsxke5nwcoelo" path="res://_project/prefabs/Backdrop.tscn" id="2_h7px5"]
-[ext_resource type="Resource" uid="uid://bk10ndr0lrdpb" path="res://_project/resources/characters/chef.tres" id="3_ahjv5"]
-[ext_resource type="Resource" uid="uid://cxhjxvxxu2j4w" path="res://_project/resources/characters/hobo.tres" id="4_e1med"]
 [ext_resource type="LightmapGIData" uid="uid://b65a6opakqkgo" path="res://_project/scenes/CharacterSelection/CharacterSelection.lmbake" id="4_yo12h"]
-[ext_resource type="Resource" uid="uid://y2dawqoty7vm" path="res://_project/resources/characters/salaryman.tres" id="5_2ldjh"]
-[ext_resource type="Resource" uid="uid://nturxjoiuwup" path="res://_project/resources/characters/soldier.tres" id="6_hhwe4"]
-[ext_resource type="Resource" uid="uid://dl4krhgcmrap6" path="res://_project/resources/characters/wizard.tres" id="7_bxyej"]
+[ext_resource type="Environment" uid="uid://1n130jbr0ire" path="res://_project/scenes/Game/game_environment.tres" id="7_0srss"]
 
 [node name="CharacterSelection" type="Node3D" node_paths=PackedStringArray("_position_root", "_slots_parent", "_player_selections_parent")]
 script = ExtResource("1_8y1u5")
-_character_library = Array[Resource("res://_project/scripts/character_resource.gd")]([ExtResource("3_ahjv5"), ExtResource("4_e1med"), ExtResource("5_2ldjh"), ExtResource("6_hhwe4"), ExtResource("7_bxyej")])
 _position_root = NodePath("PositionRoot")
 _slots_parent = NodePath("Slots")
 _player_selections_parent = NodePath("Players")
 _step = 2.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("1_crchb")
+environment = ExtResource("7_0srss")
 
 [node name="PhantomCamera3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.829037, 0.559193, 0, -0.559193, 0.829037, 0, 3.83868, 5.67255)

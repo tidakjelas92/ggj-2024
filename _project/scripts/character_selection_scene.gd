@@ -5,7 +5,6 @@ signal start(Dictionary)
 
 enum State { SELECTING, COUNTING, STARTING }
 
-@export var _character_library: Array[CharacterResource]
 @export var _position_root: Node3D
 @export var _slots_parent: Node3D
 @export var _player_selections_parent: Node
@@ -85,7 +84,9 @@ func _compile_player_selections() -> Dictionary:
 		var player: PlayerSelection = _player_selections[i]
 		if player.state != PlayerSelection.State.READY:
 			continue
-		var character: CharacterResource = _get_character_resource(player.character_index)
+		var character: CharacterResource = (
+			Data.character_library.get_character_resource(player.character_index).get_ref()
+		)
 		result[i] = character.id
 
 	return result
@@ -94,11 +95,6 @@ func _compile_player_selections() -> Dictionary:
 func _get_player(id: int) -> PlayerSelection:
 	assert(id >= 0 && id < _player_selections.size(), "id %d is out of bounds!" % id)
 	return _player_selections[id]
-
-
-func _get_character_resource(id: int) -> CharacterResource:
-	assert(id >= 0 && id <= _player_selections.size(), "id %d is out of bounds!" % id)
-	return _character_library[id]
 
 
 func _is_ready_to_start() -> bool:
@@ -178,7 +174,7 @@ func _next_character(id: int) -> void:
 	_despawn_player_character(id)
 
 	var char_index: int = player.character_index + 1
-	if char_index >= _character_library.size():
+	if char_index >= Data.character_library.characters.size():
 		char_index = 0
 
 	player.character_index = char_index
@@ -194,7 +190,7 @@ func _previous_character(id: int) -> void:
 
 	var char_index: int = player.character_index - 1
 	if char_index < 0:
-		char_index = _character_library.size() - 1
+		char_index = Data.character_library.characters.size() - 1
 
 	player.character_index = char_index
 	_spawn_player_character(id)
@@ -202,8 +198,10 @@ func _previous_character(id: int) -> void:
 
 func _spawn_player_character(id: int) -> void:
 	var player: PlayerSelection = _get_player(id)
-	var character_resource: CharacterResource = _get_character_resource(player.character_index)
-	var character: Node3D = character_resource.prefab.instantiate() as Node3D
+	var character_resource: CharacterResource = (
+		Data.character_library.get_character_resource(player.character_index).get_ref()
+	)
+	var character: Node3D = character_resource.preview_prefab.instantiate() as Node3D
 
 	var slot: Slot = _player_slots[id]
 	slot.put(character)

@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://2xr3dhj445wl"]
+
+[ext_resource type="Texture2D" uid="uid://g7y4362f5qqr" path="res://assets/textures/arena_normal.png" id="1_hsw1d"]
+[ext_resource type="Texture2D" uid="uid://cadxyuwbj1dub" path="res://assets/textures/salaryman_body_base-color.png" id="1_mcmea"]
+
+[resource]
+albedo_texture = ExtResource("1_mcmea")
+roughness = 0.6
+normal_texture = ExtResource("1_hsw1d")

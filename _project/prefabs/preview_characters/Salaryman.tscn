@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnagnq6hq54vn"]
+
+[ext_resource type="PackedScene" uid="uid://co77natagpw2f" path="res://assets/models/salaryman.gltf" id="1_5ik3l"]
+
+[node name="Salaryman" type="Node3D"]
+
+[node name="salaryman" parent="." instance=ExtResource("1_5ik3l")]

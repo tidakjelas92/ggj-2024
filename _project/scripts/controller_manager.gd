@@ -25,29 +25,38 @@ func _physics_process(_delta: float) -> void:
 	var update_size: int = mini(active_joypads.size(), max_players)
 	for i in range(update_size):
 		var joypad_id: int = active_joypads[i]
+		var player_input: PlayerInput = _player_inputs[joypad_id]
 
 		var horizontal: float = Input.get_axis("left%d" % joypad_id, "right%d" % joypad_id)
 		var vertical: float = Input.get_axis("down%d" % joypad_id, "up%d" % joypad_id)
 		var movement: Vector2 = Vector2(horizontal, vertical)
-		_player_inputs[joypad_id].move.emit(movement)
+
+		player_input.move.emit(movement)
+
+		var look_horizontal: float = Input.get_axis(
+			"lookleft%d" % joypad_id, "lookright%d" % joypad_id
+		)
+		var look_vertical: float = Input.get_axis("lookdown%d" % joypad_id, "lookup%d" % joypad_id)
+		var look: Vector2 = Vector2(look_horizontal, look_vertical)
+		player_input.look.emit(look)
 
 		if Input.is_action_just_released("confirm%d" % joypad_id):
-			_player_inputs[joypad_id].confirm.emit()
+			player_input.confirm.emit()
 
 		if Input.is_action_just_released("start%d" % joypad_id):
-			_player_inputs[joypad_id].start.emit()
+			player_input.start.emit()
 
 		if Input.is_action_just_released("dleft%d" % joypad_id):
-			_player_inputs[joypad_id].d_left.emit()
+			player_input.d_left.emit()
 
 		if Input.is_action_just_released("dright%d" % joypad_id):
-			_player_inputs[joypad_id].d_right.emit()
+			player_input.d_right.emit()
 
 		if Input.is_action_just_released("dup%d" % joypad_id):
-			_player_inputs[joypad_id].d_up.emit()
+			player_input.d_up.emit()
 
 		if Input.is_action_just_released("ddown%d" % joypad_id):
-			_player_inputs[joypad_id].d_down.emit()
+			player_input.d_down.emit()
 
 
 func get_player_input(id: int) -> WeakRef:
@@ -65,7 +74,8 @@ func _on_joy_connection_change(device: int, connected: bool) -> void:
 	if device >= _max_players:
 		return
 
+	var player_input: PlayerInput = _player_inputs[device]
 	if connected:
-		_player_inputs[device].connected.emit()
+		player_input.connected.emit()
 	else:
-		_player_inputs[device].disconnected.emit()
+		player_input.disconnected.emit()

@@ -2,6 +2,7 @@ class_name PlayerInput
 extends RefCounted
 
 signal move(Vector2)
+signal look(Vector2)
 signal disconnected
 signal connected
 signal confirm

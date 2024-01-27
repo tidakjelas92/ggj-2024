@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c36gkr54axi6f"]
+
+[ext_resource type="PackedScene" uid="uid://bcrhg3r8tjomm" path="res://assets/models/stop-sign.gltf" id="1_7n66b"]
+
+[node name="StopSign" type="Node3D"]
+
+[node name="stop-sign" parent="." instance=ExtResource("1_7n66b")]

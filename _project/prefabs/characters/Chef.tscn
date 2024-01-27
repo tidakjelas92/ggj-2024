@@ -1,10 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://c80id2am1lqou"]
+[gd_scene load_steps=5 format=3 uid="uid://chsthv6tlmvm7"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_vy32f"]
+[ext_resource type="Script" path="res://_project/scripts/character_controller.gd" id="1_vk6bf"]
+[ext_resource type="PackedScene" uid="uid://co77natagpw2f" path="res://assets/models/salaryman.gltf" id="2_jdre2"]
+[ext_resource type="Script" path="res://_project/scripts/smooth_follow_3d.gd" id="3_pgpi0"]
 
-[node name="CharacterPlaceholder" type="Node3D"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_20t4t"]
+radius = 0.3
+height = 1.5
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04617, 0)
-gi_mode = 2
-mesh = SubResource("CapsuleMesh_vy32f")
+[node name="Chef" type="RigidBody3D" node_paths=PackedStringArray("_model")]
+lock_rotation = true
+continuous_cd = true
+script = ExtResource("1_vk6bf")
+_model = NodePath("Model")
+_speed = 1000.0
+
+[node name="Model" type="Node3D" parent="."]
+
+[node name="salaryman" parent="Model" instance=ExtResource("2_jdre2")]
+
+[node name="SmoothFollow3D" type="Node" parent="Model" node_paths=PackedStringArray("_source")]
+script = ExtResource("3_pgpi0")
+_source = NodePath("../..")
+_lerp_speed = 100.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("CapsuleShape3D_20t4t")

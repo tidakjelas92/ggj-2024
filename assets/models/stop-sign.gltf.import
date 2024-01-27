@@ -1,0 +1,41 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://bcrhg3r8tjomm"
+path="res://.godot/imported/stop-sign.gltf-91f2c87f9d12395d0581263ba95004d9.scn"
+
+[deps]
+
+source_file="res://assets/models/stop-sign.gltf"
+dest_files=["res://.godot/imported/stop-sign.gltf-91f2c87f9d12395d0581263ba95004d9.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+import_script/path=""
+_subresources={
+"materials": {
+"Material.002": {
+"use_external/enabled": true,
+"use_external/path": "res://_project/materials/stop-sign.tres"
+}
+}
+}
+gltf/naming_version=1
+gltf/embedded_image_handling=1

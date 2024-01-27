@@ -1,18 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://dbgppvanvatqw"]
+[gd_scene load_steps=6 format=3 uid="uid://dbgppvanvatqw"]
 
-[ext_resource type="Environment" uid="uid://bwksjlvtegj8w" path="res://_project/CharacterSelectionEnvironment.tres" id="1_fosl8"]
 [ext_resource type="Script" path="res://_project/scripts/game_scene.gd" id="1_wu6qs"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="2_pbnsh"]
-[ext_resource type="PackedScene" uid="uid://bsxke5nwcoelo" path="res://_project/prefabs/Backdrop.tscn" id="3_hbcbs"]
-[ext_resource type="LightmapGIData" uid="uid://b65a6opakqkgo" path="res://_project/scenes/CharacterSelection/CharacterSelection.lmbake" id="4_pc348"]
+[ext_resource type="Environment" uid="uid://1n130jbr0ire" path="res://_project/scenes/Game/game_environment.tres" id="2_xjoun"]
+[ext_resource type="LightmapGIData" uid="uid://dvitw0eqv3vna" path="res://_project/scenes/Game/Game.lmbake" id="4_1jmjs"]
+[ext_resource type="PackedScene" uid="uid://vqqnqi5y2loe" path="res://_project/prefabs/Arena.tscn" id="6_2y6li"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_87fbr"]
-
-[node name="CharacterSelection" type="Node3D"]
+[node name="Game" type="Node3D" node_paths=PackedStringArray("_pcam", "_players_parent")]
 script = ExtResource("1_wu6qs")
+_pcam = NodePath("PhantomCamera3D")
+_players_parent = NodePath("Players")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("1_fosl8")
+environment = ExtResource("2_xjoun")
 
 [node name="PhantomCamera3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.829037, 0.559193, 0, -0.559193, 0.829037, 0, 3.83868, 5.67255)
@@ -32,33 +32,16 @@ light_color = Color(0.913725, 0.756863, 0.611765, 1)
 light_energy = 2.0
 shadow_enabled = true
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.56406, 0)
-gi_mode = 2
-mesh = SubResource("SphereMesh_87fbr")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.806511, 1.56406, 0)
-gi_mode = 2
-mesh = SubResource("SphereMesh_87fbr")
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.36311, 1.56406, 0)
-gi_mode = 2
-mesh = SubResource("SphereMesh_87fbr")
-
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02419, 1.56406, 0)
-gi_mode = 2
-mesh = SubResource("SphereMesh_87fbr")
-
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02419, 1.56406, -1.17536)
-gi_mode = 2
-mesh = SubResource("SphereMesh_87fbr")
-
-[node name="Backdrop" parent="." instance=ExtResource("3_hbcbs")]
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.944308, 0.196671, -0.263825, 1.1247e-08, 0.801744, 0.597668, 0.329064, 0.564382, -0.757093, 0, 0, 0)
+light_color = Color(0.533333, 0.835294, 0.984314, 1)
+light_energy = 0.5
+light_bake_mode = 1
 
 [node name="LightmapGI" type="LightmapGI" parent="."]
 quality = 0
-light_data = ExtResource("4_pc348")
+light_data = ExtResource("4_1jmjs")
+
+[node name="Arena" parent="." instance=ExtResource("6_2y6li")]
+
+[node name="Players" type="Node" parent="."]

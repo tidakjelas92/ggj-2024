@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://dwsyfqricqtku"]
+
+[ext_resource type="Texture2D" uid="uid://dmy5dkb5rlxms" path="res://assets/textures/stop-sign_base-color.png" id="1_q6434"]
+[ext_resource type="Texture2D" uid="uid://g7y4362f5qqr" path="res://assets/textures/arena_normal.png" id="2_o14yp"]
+
+[resource]
+albedo_texture = ExtResource("1_q6434")
+roughness = 0.2
+normal_texture = ExtResource("2_o14yp")
