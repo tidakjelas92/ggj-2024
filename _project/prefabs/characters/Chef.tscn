@@ -22,7 +22,7 @@ _speed = 1000.0
 [node name="SmoothFollow3D" type="Node" parent="Model" node_paths=PackedStringArray("_source")]
 script = ExtResource("3_pgpi0")
 _source = NodePath("../..")
-_lerp_speed = 100.0
+_lerp_speed = 20.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)

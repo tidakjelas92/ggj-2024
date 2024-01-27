@@ -15,7 +15,6 @@ func _ready() -> void:
 
 
 func initialize(player_selections: Dictionary) -> void:
-	print("game scene iniitalize!")
 	print(player_selections)
 	var player_count: int = player_selections.size()
 	_players.resize(player_count)
@@ -32,8 +31,15 @@ func initialize(player_selections: Dictionary) -> void:
 			character_resource.character_prefab.instantiate() as CharacterController
 		)
 		add_child(character)
+		_pcam.append_follow_group_node(character)
+
+		var erase_follow_closure: Callable = func() -> void: _pcam.erase_follow_group_node(
+			character
+		)
+
 		player.force_multiplier = 1
-		player.character = character
+		player.set_character(character)
+		player.die.connect(erase_follow_closure)
 
 		_players[key] = player
 
