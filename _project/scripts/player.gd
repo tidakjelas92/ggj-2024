@@ -4,8 +4,14 @@ extends Node
 signal die
 signal respawn
 
+enum State { RESPAWNING, PLAYING, DEAD }
+
 var force_multiplier: float
+var lives: int = 5
+var character_id: StringName
 var character: CharacterController
+var state: State
+var current_respawn_time: float
 
 
 func set_character(chara: CharacterController) -> void:
@@ -25,3 +31,9 @@ func _on_die() -> void:
 	character.queue_free()
 	die.emit()
 	force_multiplier = 1
+	lives -= 1
+
+	if lives <= 0:
+		state = State.DEAD
+	else:
+		state = State.RESPAWNING

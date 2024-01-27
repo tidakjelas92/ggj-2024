@@ -5,6 +5,9 @@ signal exit
 
 @export var _pcam: PhantomCamera3D
 @export var _players_parent: Node
+@export var _respawn_points: Array[Node3D]
+var max_lives: int
+var respawn_time: float
 
 var _players: Array[Player]
 
@@ -12,6 +15,20 @@ var _players: Array[Player]
 func _ready() -> void:
 	var player_0: PlayerInput = Controller.get_player_input(0).get_ref()
 	player_0.confirm.connect(_exit)
+
+
+func _process(delta: float) -> void:
+	for i in range(_players.size()):
+		var player: Player = _players[i]
+		match player.state:
+			Player.State.RESPAWNING:
+				player.current_respawn_time -= delta
+				if player.current_respawn_time <= 0:
+					_spawn_player_character(i)
+					player.current_respawn_time = respawn_time
+					player.state = Player.State.PLAYING
+			_:
+				continue
 
 
 func initialize(player_selections: Dictionary) -> void:
@@ -23,23 +40,10 @@ func initialize(player_selections: Dictionary) -> void:
 		var player: Player = Player.new()
 		_players_parent.add_child(player)
 
-		var character_id: StringName = player_selections[key]
-		var character_resource: CharacterResource = (
-			Data.character_library.get_character_resource_with_id(character_id).get_ref()
-		)
-		var character: CharacterController = (
-			character_resource.character_prefab.instantiate() as CharacterController
-		)
-		add_child(character)
-		_pcam.append_follow_group_node(character)
-
-		var erase_follow_closure: Callable = func() -> void: _pcam.erase_follow_group_node(
-			character
-		)
-
-		player.force_multiplier = 1
-		player.set_character(character)
+		var erase_follow_closure: Callable = func() -> void: _unregister_camera_follow(key)
+		player.lives = max_lives
 		player.die.connect(erase_follow_closure)
+		player.character_id = player_selections[key]
 
 		_players[key] = player
 
@@ -88,3 +92,26 @@ func _look_player(id: int, vec: Vector2) -> void:
 	rad += _pcam.global_rotation.y
 	rad += PI * 0.5
 	player.look_character(rad)
+
+
+func _spawn_player_character(id: int) -> void:
+	var player: Player = _get_player(id)
+	var character_resource: CharacterResource = (
+		Data.character_library.get_character_resource_with_id(player.character_id).get_ref()
+	)
+	var character: CharacterController = (
+		character_resource.character_prefab.instantiate() as CharacterController
+	)
+	add_child(character)
+
+	character.global_position = _respawn_points[id].global_position
+	character.global_rotation = _respawn_points[id].global_rotation
+
+	_pcam.append_follow_group_node(character)
+	player.set_character(character)
+	player.force_multiplier = 1
+
+
+func _unregister_camera_follow(id: int) -> void:
+	var player: Player = _get_player(id)
+	_pcam.erase_follow_group_node(player.character)

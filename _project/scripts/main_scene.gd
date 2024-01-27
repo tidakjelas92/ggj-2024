@@ -5,6 +5,8 @@ extends Node
 @export var _game_prefab: PackedScene
 @export var _max_players: int = 4
 @export var _min_players: int = 2
+@export var _max_lives: int = 5
+@export var _respawn_time: float = 10
 
 var _active_scene: Node
 
@@ -34,5 +36,7 @@ func _load_game_scene(player_selections: Dictionary) -> void:
 	var game_scene = _game_prefab.instantiate()
 	add_child(game_scene)
 	game_scene.exit.connect(_load_character_selection_scene)
+	game_scene.max_lives = _max_lives
+	game_scene.respawn_time = _respawn_time
 	game_scene.initialize(player_selections)
 	_active_scene = game_scene
