@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CharacterResource" load_steps=3 format=3 uid="uid://bk10ndr0lrdpb"]
+
+[ext_resource type="PackedScene" uid="uid://c80id2am1lqou" path="res://_project/prefabs/characters/Chef.tscn" id="1_5xmai"]
+[ext_resource type="Script" path="res://_project/scripts/character_resource.gd" id="2_kqy3k"]
+
+[resource]
+script = ExtResource("2_kqy3k")
+id = &"chef"
+nice_name = &"Chef"
+prefab = ExtResource("1_5xmai")

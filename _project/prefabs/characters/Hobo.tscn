@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4tawffsjvaox"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_8orpf"]
+
+[node name="CharacterPlaceholder" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.501941, 0)
+gi_mode = 2
+mesh = SubResource("PrismMesh_8orpf")
