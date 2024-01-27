@@ -75,6 +75,10 @@ func _look_player(id: int, vec: Vector2) -> void:
 	if player.character == null:
 		return
 
+	if vec == Vector2.ZERO:
+		return
+
 	var rad: float = atan2(vec.y, vec.x)
 	rad += _pcam.global_rotation.y
+	rad += PI * 0.5
 	player.look_character(rad)
