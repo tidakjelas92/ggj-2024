@@ -10,6 +10,7 @@
 script = ExtResource("1_gnll8")
 _character_selection_prefab = ExtResource("3_d80lw")
 _game_prefab = ExtResource("3_uhrqu")
+_respawn_time = 5.0
 
 [node name="PhantomCameraHost" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.829037, 0.559193, 0, -0.559193, 0.829037, 0, 3.83868, 5.67255)

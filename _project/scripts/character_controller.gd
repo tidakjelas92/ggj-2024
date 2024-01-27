@@ -24,3 +24,11 @@ func _physics_process(delta: float) -> void:
 ## [param vec] expects to already be rotated according to the camera
 func set_movement_vec(vec: Vector3) -> void:
 	_movement_vec = vec
+
+
+func trigger_light_attack() -> void:
+	print("light attack!")
+
+
+func trigger_heavy_attack() -> void:
+	print("heavy attack!")
