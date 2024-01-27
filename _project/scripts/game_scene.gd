@@ -73,7 +73,6 @@ func _on_done() -> void:
 				return
 			Player.EndGameDecision.QUIT:
 				has_quit = true
-				break
 
 	if has_quit:
 		_exit()
@@ -120,6 +119,7 @@ func _reset_all() -> void:
 	for i in range(_players.size()):
 		var player: Player = _players[i]
 		if player.character != null:
+			_pcam.erase_follow_group_node(player.character)
 			player.character.queue_free()
 			player.character = null
 
@@ -144,6 +144,9 @@ func _get_player(id: int) -> Player:
 
 
 func _move_player(id: int, vec: Vector2) -> void:
+	if _state != State.PLAYING:
+		return
+
 	var player: Player = _get_player(id)
 	if player == null:
 		return
@@ -157,6 +160,9 @@ func _move_player(id: int, vec: Vector2) -> void:
 
 
 func _look_player(id: int, vec: Vector2) -> void:
+	if _state != State.PLAYING:
+		return
+
 	var player: Player = _get_player(id)
 	if player == null:
 		return
@@ -217,10 +223,10 @@ func _decide_replay(id: int) -> void:
 		return
 
 	var player: Player = _get_player(id)
-	if player.end_game_decision == Player.EndGameDecision.QUIT:
+	if player.end_game_decision == Player.EndGameDecision.REPLAY:
 		return
 
-	player.end_game_decision = Player.EndGameDecision.QUIT
+	player.end_game_decision = Player.EndGameDecision.REPLAY
 
 
 func _light_attack(id: int) -> void:
