@@ -122,11 +122,13 @@ func _is_ready_to_start() -> bool:
 		match player.state:
 			PlayerSelection.State.DISCONNECTED:
 				continue
+			PlayerSelection.State.CONNECTED:
+				continue
+			PlayerSelection.State.SELECTING:
+				total_count += 1
 			PlayerSelection.State.READY:
 				total_count += 1
 				ready_count += 1
-			_:
-				total_count += 1
 
 	if ready_count < _min_players:
 		return false
@@ -178,17 +180,22 @@ func _on_confirm(id: int) -> void:
 
 func _on_start(id: int) -> void:
 	var player: PlayerSelection = _get_player(id)
-	if player.state == PlayerSelection.State.SELECTING:
-		return
+	match player.state:
+		PlayerSelection.State.DISCONNECTED:
+			return
+		PlayerSelection.State.CONNECTED:
+			print("player %d is selecting" % id)
+			player.state = PlayerSelection.State.SELECTING
 
-	if player.state == PlayerSelection.State.READY:
-		return
-
-	print("player %d is selecting" % id)
-	player.state = PlayerSelection.State.SELECTING
-
-	get_node(_player_ui[id]["player_icon"]).visible = true
-	_spawn_player_character(id)
+			get_node(_player_ui[id]["player_icon"]).visible = true
+			_spawn_player_character(id)
+		_:
+			player.state = PlayerSelection.State.CONNECTED
+			_despawn_player_character(id)
+			player.character_index = 0
+			get_node(_player_ui[id]["player_icon"]).visible = false
+			get_node(_player_ui[id]["ready_icon"]).visible = false
+			_state = State.SELECTING
 
 
 func _next_character(id: int) -> void:

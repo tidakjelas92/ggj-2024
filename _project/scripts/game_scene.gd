@@ -54,6 +54,9 @@ func _process(delta: float) -> void:
 func _physics_process(_delta: float) -> void:
 	for i in range(_players.size()):
 		var player: Player = _players[i]
+		if player == null:
+			continue
+
 		var player_ui: Dictionary = _player_ui[i]
 
 		get_node(player_ui["live_label"]).text = "x%d" % player.lives
@@ -81,6 +84,9 @@ func _on_playing(delta: float) -> void:
 
 	for i in range(_players.size()):
 		var player: Player = _players[i]
+		if player == null:
+			continue
+
 		match player.state:
 			Player.State.RESPAWNING:
 				alive_players += 1
@@ -109,6 +115,8 @@ func _on_done() -> void:
 	var has_quit: bool = false
 	for i in range(_players.size()):
 		var player: Player = _players[i]
+		if player == null:
+			continue
 		match player.end_game_decision:
 			Player.EndGameDecision.UNDECIDED:
 				return
@@ -122,10 +130,8 @@ func _on_done() -> void:
 		_start_game()
 
 
-func initialize(player_selections: Dictionary) -> void:
-	print(player_selections)
-	var player_count: int = player_selections.size()
-	_players.resize(player_count)
+func initialize(max_players: int, player_selections: Dictionary) -> void:
+	_players.resize(max_players)
 
 	for i in range(_player_ui.size()):
 		get_node(_player_ui[i]["bar"]).visible = false

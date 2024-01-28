@@ -42,5 +42,5 @@ func _load_game_scene(player_selections: Dictionary) -> void:
 	game_scene.respawn_time = _respawn_time
 	game_scene.weapon_spawn_radius = _weapon_spawn_radius
 	game_scene.weapon_spawn_interval = _weapon_spawn_interval / player_selections.size()
-	game_scene.initialize(player_selections)
+	game_scene.initialize(_max_players, player_selections)
 	_active_scene = game_scene
