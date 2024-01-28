@@ -9,3 +9,6 @@ script = ExtResource("1_ilbkf")
 id = &"grenade"
 pickupable_prefab = ExtResource("1_wly0d")
 prefab = ExtResource("2_1u8sv")
+light_damage = 2.0
+heavy_damage = 20.0
+durability = 2.0

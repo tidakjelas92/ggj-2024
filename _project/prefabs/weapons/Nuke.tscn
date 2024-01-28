@@ -1,16 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://bml14gedaelft"]
+[gd_scene load_steps=4 format=3 uid="uid://bml14gedaelft"]
 
-[ext_resource type="PackedScene" uid="uid://bcrhg3r8tjomm" path="res://assets/models/stop-sign.gltf" id="1_rweyn"]
+[ext_resource type="Script" path="res://_project/scripts/weapon.gd" id="1_y5sxk"]
+[ext_resource type="PackedScene" uid="uid://c80yoiv7wmi08" path="res://assets/models/nuke.gltf" id="2_h06j1"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xlesb"]
-radius = 0.245
-height = 1.51005
+[sub_resource type="SphereShape3D" id="SphereShape3D_bjeoj"]
+radius = 10.0
 
-[node name="StopSign" type="Area3D"]
+[node name="Nuke" type="Area3D" node_paths=PackedStringArray("_collision_shape")]
 monitorable = false
+script = ExtResource("1_y5sxk")
+_collision_shape = NodePath("CollisionShape3D")
 
-[node name="stop-sign" parent="." instance=ExtResource("1_rweyn")]
+[node name="nuke" parent="." instance=ExtResource("2_h06j1")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75282, 0)
-shape = SubResource("CapsuleShape3D_xlesb")
+shape = SubResource("SphereShape3D_bjeoj")
+disabled = true

@@ -1,18 +1,21 @@
 [gd_scene load_steps=4 format=3 uid="uid://cr42kwx52eryh"]
 
-[ext_resource type="PackedScene" uid="uid://bcrhg3r8tjomm" path="res://assets/models/stop-sign.gltf" id="1_7eun6"]
 [ext_resource type="Script" path="res://_project/scripts/pickupable_weapon.gd" id="1_wq8hg"]
+[ext_resource type="PackedScene" uid="uid://c80yoiv7wmi08" path="res://assets/models/nuke.gltf" id="2_58gbw"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xlesb"]
-radius = 0.04
-height = 1.51005
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_oo7w5"]
+height = 3.48403
+radius = 0.945
 
-[node name="Nuke" type="RigidBody3D"]
+[node name="Nuke" type="RigidBody3D" node_paths=PackedStringArray("_meshes")]
 mass = 0.2
 script = ExtResource("1_wq8hg")
+_meshes = [NodePath("nuke/Cylinder")]
 
-[node name="stop-sign" parent="." instance=ExtResource("1_7eun6")]
+[node name="nuke" parent="." instance=ExtResource("2_58gbw")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75282, 0)
-shape = SubResource("CapsuleShape3D_xlesb")
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.979949, -0.341112)
+shape = SubResource("CylinderShape3D_oo7w5")
+
+[editable path="nuke"]

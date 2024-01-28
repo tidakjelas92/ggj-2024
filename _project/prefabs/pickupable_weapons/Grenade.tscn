@@ -1,18 +1,21 @@
 [gd_scene load_steps=4 format=3 uid="uid://c56gr0df60loa"]
 
-[ext_resource type="PackedScene" uid="uid://bcrhg3r8tjomm" path="res://assets/models/stop-sign.gltf" id="1_4dow4"]
 [ext_resource type="Script" path="res://_project/scripts/pickupable_weapon.gd" id="1_ce2bm"]
+[ext_resource type="PackedScene" uid="uid://dpubhd40t4j7l" path="res://assets/models/grenade.gltf" id="2_v8xge"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xlesb"]
-radius = 0.04
-height = 1.51005
+[sub_resource type="SphereShape3D" id="SphereShape3D_eb1tm"]
+radius = 0.23
 
-[node name="Grenade" type="RigidBody3D"]
+[node name="Grenade" type="RigidBody3D" node_paths=PackedStringArray("_meshes")]
 mass = 0.2
 script = ExtResource("1_ce2bm")
+_meshes = [NodePath("grenade/Cylinder")]
 
-[node name="stop-sign" parent="." instance=ExtResource("1_4dow4")]
+[node name="grenade" parent="." instance=ExtResource("2_v8xge")]
+transform = Transform3D(4.67107, 0, 0, 0, 4.67107, 0, 0, 0, 4.67107, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75282, 0)
-shape = SubResource("CapsuleShape3D_xlesb")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.197346, 0)
+shape = SubResource("SphereShape3D_eb1tm")
+
+[editable path="grenade"]

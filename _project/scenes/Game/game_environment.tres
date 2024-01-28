@@ -20,5 +20,5 @@ ssao_enabled = true
 glow_enabled = true
 fog_light_color = Color(0.188235, 0.552941, 0.94902, 1)
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.0315
+volumetric_fog_density = 0.01
 volumetric_fog_albedo = Color(0.329412, 0.752941, 0.792157, 1)

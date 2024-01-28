@@ -35,6 +35,14 @@ func _physics_process(delta: float) -> void:
 	_highlight_shortest_pickupable()
 
 
+func destroy_weapon() -> void:
+	if _weapon == null:
+		return
+
+	_weapon.queue_free()
+	_weapon = null
+
+
 func has_pickupable() -> bool:
 	return _highlighted_pickupable != null
 
@@ -45,6 +53,8 @@ func pickup() -> void:
 	var weapon: Weapon = weapon_resource.prefab.instantiate() as Weapon
 	weapon.light_damage = weapon_resource.light_damage
 	weapon.heavy_damage = weapon_resource.heavy_damage
+	weapon.current_durability = weapon_resource.durability
+	weapon.durability_depleted.connect(destroy_weapon)
 	weapon.get_owner_node = func() -> Node3D: return self
 	_weapon_slot.put(weapon)
 	_weapon = weapon

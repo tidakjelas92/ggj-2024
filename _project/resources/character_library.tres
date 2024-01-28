@@ -1,12 +1,11 @@
-[gd_resource type="Resource" script_class="CharacterLibrary" load_steps=7 format=3 uid="uid://cfxcg2aujmt5i"]
+[gd_resource type="Resource" script_class="CharacterLibrary" load_steps=6 format=3 uid="uid://cfxcg2aujmt5i"]
 
 [ext_resource type="Resource" uid="uid://bk10ndr0lrdpb" path="res://_project/resources/characters/chef.tres" id="1_7etdd"]
 [ext_resource type="Script" path="res://_project/scripts/character_library.gd" id="1_fg3mv"]
-[ext_resource type="Resource" uid="uid://cxhjxvxxu2j4w" path="res://_project/resources/characters/hobo.tres" id="2_lnvtb"]
 [ext_resource type="Resource" uid="uid://y2dawqoty7vm" path="res://_project/resources/characters/salaryman.tres" id="3_lnid7"]
 [ext_resource type="Resource" uid="uid://nturxjoiuwup" path="res://_project/resources/characters/soldier.tres" id="4_4ybht"]
 [ext_resource type="Resource" uid="uid://dl4krhgcmrap6" path="res://_project/resources/characters/wizard.tres" id="5_eacbl"]
 
 [resource]
 script = ExtResource("1_fg3mv")
-characters = Array[Resource("res://_project/scripts/character_resource.gd")]([ExtResource("1_7etdd"), ExtResource("2_lnvtb"), ExtResource("3_lnid7"), ExtResource("4_4ybht"), ExtResource("5_eacbl")])
+characters = Array[Resource("res://_project/scripts/character_resource.gd")]([ExtResource("1_7etdd"), ExtResource("3_lnid7"), ExtResource("4_4ybht"), ExtResource("5_eacbl")])

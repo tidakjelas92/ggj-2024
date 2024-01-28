@@ -16,6 +16,13 @@ var current_respawn_time: float
 var end_game_decision: EndGameDecision
 
 
+func destroy_weapon() -> void:
+	if character == null:
+		return
+
+	character.destroy_weapon()
+
+
 func set_character(chara: CharacterController) -> void:
 	character = chara
 	character.die.connect(_on_die)

@@ -6,3 +6,4 @@ extends Resource
 @export var prefab: PackedScene
 @export var light_damage: float = 0.5
 @export var heavy_damage: float = 5
+@export var durability: float = 5

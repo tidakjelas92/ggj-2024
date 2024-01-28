@@ -1,6 +1,8 @@
 class_name Weapon
 extends Area3D
 
+signal durability_depleted
+
 enum Damage { LIGHT, HEAVY }
 
 @export var _collision_shape: CollisionShape3D
@@ -8,10 +10,17 @@ var light_damage: float
 var heavy_damage: float
 var current_damage_type: Damage
 var get_owner_node: Callable
+var current_durability: float
 
 
 func _ready() -> void:
 	body_entered.connect(_on_hitbox_enter)
+
+
+func _process(delta: float) -> void:
+	current_durability -= delta
+	if current_durability <= 0:
+		durability_depleted.emit()
 
 
 func activate_hurtbox() -> void:

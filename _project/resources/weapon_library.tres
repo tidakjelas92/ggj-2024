@@ -1,16 +1,18 @@
-[gd_resource type="Resource" script_class="WeaponLibrary" load_steps=6 format=3 uid="uid://dk3exodkdan7l"]
+[gd_resource type="Resource" script_class="WeaponLibrary" load_steps=7 format=3 uid="uid://dk3exodkdan7l"]
 
 [ext_resource type="Script" path="res://_project/scripts/weapon_library.gd" id="1_jvynw"]
 [ext_resource type="Resource" uid="uid://d3r8q7wni4vuk" path="res://_project/resources/weapons/sword.tres" id="1_t140g"]
 [ext_resource type="Resource" uid="uid://c72kv4t20p5wo" path="res://_project/resources/weapons/stop-sign.tres" id="2_5wxuw"]
 [ext_resource type="Resource" uid="uid://va6g7tjb8mag" path="res://_project/resources/weapons/grenade.tres" id="3_jyxh0"]
 [ext_resource type="Resource" uid="uid://cuexlywtgrdbf" path="res://_project/resources/weapons/nuke.tres" id="4_kpn5s"]
+[ext_resource type="Resource" uid="uid://c5rfsymq5a1ea" path="res://_project/resources/weapons/comically-large-spoon.tres" id="6_gl6ln"]
 
 [resource]
 script = ExtResource("1_jvynw")
 weapons = {
-ExtResource("1_t140g"): 0,
-ExtResource("2_5wxuw"): 50,
-ExtResource("3_jyxh0"): 0,
-ExtResource("4_kpn5s"): 0
+ExtResource("1_t140g"): 2,
+ExtResource("2_5wxuw"): 2,
+ExtResource("3_jyxh0"): 1,
+ExtResource("4_kpn5s"): 1,
+ExtResource("6_gl6ln"): 1
 }

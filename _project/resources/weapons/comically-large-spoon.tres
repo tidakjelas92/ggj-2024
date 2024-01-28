@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=4 format=3 uid="uid://c5rfsymq5a1ea"]
+
+[ext_resource type="PackedScene" uid="uid://c65y51r83oqoh" path="res://_project/prefabs/pickupable_weapons/ComicallyLargeSpoon.tscn" id="1_6vv2u"]
+[ext_resource type="PackedScene" uid="uid://pmhtfm58ltmn" path="res://_project/prefabs/weapons/ComicallyLargeSpoon.tscn" id="2_ek5nl"]
+[ext_resource type="Script" path="res://_project/scripts/weapon_resource.gd" id="3_ooi2h"]
+
+[resource]
+script = ExtResource("3_ooi2h")
+id = &"comically-large-spoon"
+pickupable_prefab = ExtResource("1_6vv2u")
+prefab = ExtResource("2_ek5nl")
+light_damage = 2.0
+heavy_damage = 20.0
+durability = 7.5
