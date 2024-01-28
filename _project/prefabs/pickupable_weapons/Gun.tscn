@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://6kwf78bu2wr5"]
+
+[ext_resource type="Script" path="res://_project/scripts/pickupable_weapon.gd" id="1_pngeb"]
+[ext_resource type="PackedScene" uid="uid://bhusjtf5xthgo" path="res://assets/models/gun.gltf" id="3_28yfc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2la32"]
+size = Vector3(0.198242, 0.0625, 0.375244)
+
+[node name="Gun" type="RigidBody3D" node_paths=PackedStringArray("_meshes")]
+mass = 0.2
+continuous_cd = true
+script = ExtResource("1_pngeb")
+_meshes = [NodePath("gun/Cube")]
+
+[node name="gun" parent="." instance=ExtResource("3_28yfc")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.0970326, 0, 0.0118017)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48118e-05, 0)
+shape = SubResource("BoxShape3D_2la32")
+
+[editable path="gun"]

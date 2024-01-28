@@ -10,8 +10,9 @@ radius = 0.144874
 [sub_resource type="BoxShape3D" id="BoxShape3D_jyq25"]
 size = Vector3(0.789307, 1.32324, 0.154053)
 
-[node name="Grenade" type="RigidBody3D" node_paths=PackedStringArray("_meshes")]
+[node name="ComicallyLargeSpoon" type="RigidBody3D" node_paths=PackedStringArray("_meshes")]
 mass = 0.2
+continuous_cd = true
 script = ExtResource("1_qbmdo")
 _meshes = [NodePath("comically-large-spoon/Plane")]
 

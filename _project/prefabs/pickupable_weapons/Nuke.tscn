@@ -9,6 +9,7 @@ radius = 0.945
 
 [node name="Nuke" type="RigidBody3D" node_paths=PackedStringArray("_meshes")]
 mass = 0.2
+continuous_cd = true
 script = ExtResource("1_wq8hg")
 _meshes = [NodePath("nuke/Cylinder")]
 

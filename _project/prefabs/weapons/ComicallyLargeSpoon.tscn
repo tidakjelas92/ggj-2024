@@ -7,7 +7,7 @@
 height = 3.94268
 radius = 0.431521
 
-[node name="Grenade" type="Area3D" node_paths=PackedStringArray("_collision_shape")]
+[node name="ComicallyLargeSpoon" type="Area3D" node_paths=PackedStringArray("_collision_shape")]
 monitorable = false
 script = ExtResource("1_81hy1")
 _collision_shape = NodePath("CollisionShape3D")

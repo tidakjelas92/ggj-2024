@@ -9,6 +9,7 @@ height = 0.49
 
 [node name="Sword" type="RigidBody3D" node_paths=PackedStringArray("_meshes")]
 mass = 0.2
+continuous_cd = true
 script = ExtResource("1_jijcn")
 _meshes = [NodePath("sword/Cube")]
 
