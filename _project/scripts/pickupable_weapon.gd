@@ -10,3 +10,8 @@ var id: StringName
 func set_highlight(enabled: bool) -> void:
 	for i in range(_meshes.size()):
 		_meshes[i].material_overlay = outline_material if enabled else null
+
+
+func _physics_process(_delta: float) -> void:
+	if global_position.length() > 30:
+		queue_free()

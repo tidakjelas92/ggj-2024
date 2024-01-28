@@ -28,7 +28,7 @@ func _physics_process(delta: float) -> void:
 	var force: Vector3 = _movement_vec * delta * _speed
 	apply_central_force(force)
 
-	if global_position.y <= -15:
+	if global_position.y <= -15 || global_position.length() > 100:
 		die.emit()
 		return
 
