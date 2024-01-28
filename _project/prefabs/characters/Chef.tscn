@@ -66,7 +66,7 @@ _speed = 1000.0
 _weapon_detection_area = NodePath("WeaponDetectionArea")
 _weapon_detection_shape = NodePath("WeaponDetectionArea/CollisionShape3D")
 _animation_tree = NodePath("AnimationTree")
-_weapon_slot = NodePath("Hand/WeaponSlot")
+_weapon_slot = NodePath("Model/Hand/WeaponSlot")
 
 [node name="Model" type="Node3D" parent="."]
 
@@ -76,6 +76,12 @@ _weapon_slot = NodePath("Hand/WeaponSlot")
 script = ExtResource("3_pgpi0")
 _source = NodePath("../..")
 _lerp_speed = 20.0
+
+[node name="Hand" type="Node3D" parent="Model"]
+transform = Transform3D(0.997937, 0.0538871, -0.0349033, -0.0400927, 0.947654, 0.316771, 0.0501461, -0.314718, 0.94786, 0.296991, 0.942774, 0.0104785)
+
+[node name="WeaponSlot" type="Node3D" parent="Model/Hand"]
+script = ExtResource("4_dcke5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
@@ -105,9 +111,3 @@ parameters/o_attack/request = 0
 libraries = {
 "": SubResource("AnimationLibrary_58po6")
 }
-
-[node name="Hand" type="Node3D" parent="."]
-transform = Transform3D(0.99228, 0.123897, -0.00545449, -0.113153, 0.922485, 0.369077, 0.0507591, -0.36561, 0.929383, 0.296991, 0.872503, 0.0104785)
-
-[node name="WeaponSlot" type="Node3D" parent="Hand"]
-script = ExtResource("4_dcke5")
