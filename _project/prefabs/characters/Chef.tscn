@@ -44,7 +44,6 @@ input_1/reset = true
 fadeout_time = 0.2
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_8xa81"]
-graph_offset = Vector2(-607.711, -35.6362)
 nodes/a_heavy_attack/node = SubResource("AnimationNodeAnimation_7e48f")
 nodes/a_heavy_attack/position = Vector2(-540, 340)
 nodes/a_idle/node = SubResource("AnimationNodeAnimation_gbe0t")
@@ -78,7 +77,7 @@ _source = NodePath("../..")
 _lerp_speed = 20.0
 
 [node name="Hand" type="Node3D" parent="Model"]
-transform = Transform3D(0.997937, 0.0538871, -0.0349033, -0.0400927, 0.947654, 0.316771, 0.0501461, -0.314718, 0.94786, 0.296991, 0.942774, 0.0104785)
+transform = Transform3D(0.997622, 0.0609469, -0.0321852, -0.0474419, 0.945963, 0.320785, 0.0499968, -0.318495, 0.946605, 0.296991, 0.926791, 0.0104785)
 
 [node name="WeaponSlot" type="Node3D" parent="Model/Hand"]
 script = ExtResource("4_dcke5")
