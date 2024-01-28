@@ -2,6 +2,7 @@ class_name Weapon
 extends Area3D
 
 signal durability_depleted
+signal on_activate_hurtbox
 
 enum Damage { LIGHT, HEAVY }
 
@@ -26,6 +27,7 @@ func _process(delta: float) -> void:
 
 func activate_hurtbox() -> void:
 	_collision_shape.disabled = false
+	on_activate_hurtbox.emit()
 
 
 func deactivate_hurtbox() -> void:

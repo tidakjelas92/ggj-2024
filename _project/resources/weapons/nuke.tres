@@ -10,5 +10,5 @@ id = &"nuke"
 pickupable_prefab = ExtResource("1_dmbti")
 prefab = ExtResource("2_o0iws")
 light_damage = 30.0
-heavy_damage = 100.0
+heavy_damage = 150.0
 durability = 2.0

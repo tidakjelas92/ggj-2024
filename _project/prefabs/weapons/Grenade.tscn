@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://nb34k7qdq1cy"]
+[gd_scene load_steps=6 format=3 uid="uid://nb34k7qdq1cy"]
 
 [ext_resource type="Script" path="res://_project/scripts/weapon.gd" id="1_blfrq"]
 [ext_resource type="PackedScene" uid="uid://dpubhd40t4j7l" path="res://assets/models/grenade.gltf" id="1_lhhwr"]
@@ -6,6 +6,8 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mq6rj"]
 radius = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_hjgqa"]
 
 [node name="Grenade" type="Area3D" node_paths=PackedStringArray("_collision_shape", "_audio_stream_player")]
 monitorable = false
@@ -23,3 +25,23 @@ disabled = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_la74p")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 1.0
+randomness = 0.7
+lifetime_randomness = 0.2
+mesh = SubResource("SphereMesh_hjgqa")
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 7.0
+initial_velocity_max = 24.4
+scale_amount_min = 0.2
+scale_amount_max = 3.0
+
+[connection signal="on_activate_hurtbox" from="." to="CPUParticles3D" method="restart"]
