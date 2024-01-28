@@ -10,9 +10,9 @@
 [resource]
 script = ExtResource("1_jvynw")
 weapons = {
-ExtResource("1_t140g"): 2,
-ExtResource("2_5wxuw"): 2,
-ExtResource("3_jyxh0"): 1,
+ExtResource("1_t140g"): 10,
+ExtResource("2_5wxuw"): 6,
+ExtResource("3_jyxh0"): 4,
 ExtResource("4_kpn5s"): 1,
-ExtResource("6_gl6ln"): 1
+ExtResource("6_gl6ln"): 3
 }
