@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CharacterResource" load_steps=4 format=3 uid="uid://nturxjoiuwup"]
 
 [ext_resource type="PackedScene" uid="uid://bkalkwba4vfh4" path="res://_project/prefabs/preview_characters/Soldier.tscn" id="1_f1mqg"]
-[ext_resource type="PackedScene" uid="uid://b7mw86hjdqydw" path="res://_project/prefabs/characters/Soldier.tscn" id="1_jn3rd"]
+[ext_resource type="PackedScene" uid="uid://dretiwxadmwhf" path="res://_project/prefabs/characters/Soldier.tscn" id="1_jn3rd"]
 [ext_resource type="Script" path="res://_project/scripts/character_resource.gd" id="2_xbonc"]
 
 [resource]

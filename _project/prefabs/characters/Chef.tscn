@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://chsthv6tlmvm7"]
 
 [ext_resource type="Script" path="res://_project/scripts/character_controller.gd" id="1_vk6bf"]
-[ext_resource type="PackedScene" uid="uid://co77natagpw2f" path="res://assets/models/salaryman.gltf" id="2_jdre2"]
+[ext_resource type="PackedScene" uid="uid://cf1ljtkb1mfmg" path="res://assets/models/chef.gltf" id="2_5fgtf"]
 [ext_resource type="Script" path="res://_project/scripts/smooth_follow_3d.gd" id="3_pgpi0"]
 [ext_resource type="Animation" uid="uid://b4mjb6k8gnxfu" path="res://_project/animations/light_attack.res" id="4_5di78"]
 [ext_resource type="Script" path="res://_project/scripts/slot.gd" id="4_dcke5"]
@@ -69,7 +69,7 @@ _weapon_slot = NodePath("Model/Hand/WeaponSlot")
 
 [node name="Model" type="Node3D" parent="."]
 
-[node name="salaryman" parent="Model" instance=ExtResource("2_jdre2")]
+[node name="chef" parent="Model" instance=ExtResource("2_5fgtf")]
 
 [node name="SmoothFollow3D" type="Node" parent="Model" node_paths=PackedStringArray("_source")]
 script = ExtResource("3_pgpi0")
@@ -77,7 +77,7 @@ _source = NodePath("../..")
 _lerp_speed = 20.0
 
 [node name="Hand" type="Node3D" parent="Model"]
-transform = Transform3D(0.997622, 0.0609469, -0.0321852, -0.0474419, 0.945963, 0.320785, 0.0499968, -0.318495, 0.946605, 0.296991, 0.926791, 0.0104785)
+transform = Transform3D(0.991324, 0.131436, -0.00112004, -0.120795, 0.914359, 0.386466, 0.0518196, -0.382978, 0.922303, 0.296991, 0.939961, 0.0104785)
 
 [node name="WeaponSlot" type="Node3D" parent="Model/Hand"]
 script = ExtResource("4_dcke5")

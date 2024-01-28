@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CharacterResource" load_steps=4 format=3 uid="uid://cxhjxvxxu2j4w"]
 
 [ext_resource type="PackedScene" uid="uid://c4tawffsjvaox" path="res://_project/prefabs/preview_characters/Hobo.tscn" id="1_4mq8v"]
-[ext_resource type="PackedScene" uid="uid://b2ifh11slyoec" path="res://_project/prefabs/characters/Hobo.tscn" id="1_qiy75"]
+[ext_resource type="PackedScene" uid="uid://diukcm47einmc" path="res://_project/prefabs/characters/Hobo.tscn" id="1_qiy75"]
 [ext_resource type="Script" path="res://_project/scripts/character_resource.gd" id="2_sa2di"]
 
 [resource]

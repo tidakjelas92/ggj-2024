@@ -1,29 +1,112 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7mw86hjdqydw"]
+[gd_scene load_steps=17 format=3 uid="uid://dretiwxadmwhf"]
 
 [ext_resource type="Script" path="res://_project/scripts/character_controller.gd" id="1_dhlkj"]
-[ext_resource type="PackedScene" uid="uid://co77natagpw2f" path="res://assets/models/salaryman.gltf" id="2_bix6y"]
+[ext_resource type="PackedScene" uid="uid://dxwu3ac6j6ptw" path="res://assets/models/soldier.gltf" id="2_bmecx"]
 [ext_resource type="Script" path="res://_project/scripts/smooth_follow_3d.gd" id="3_eqwsl"]
+[ext_resource type="Script" path="res://_project/scripts/slot.gd" id="4_r2q6u"]
+[ext_resource type="Animation" uid="uid://bg20hg8osao04" path="res://_project/animations/heavy_attack.res" id="5_mxuyb"]
+[ext_resource type="Animation" uid="uid://df3kf42mnbu7u" path="res://_project/animations/idle.res" id="6_4rajr"]
+[ext_resource type="Animation" uid="uid://b4mjb6k8gnxfu" path="res://_project/animations/light_attack.res" id="7_rm5c4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_20t4t"]
 radius = 0.3
 height = 1.5
 
-[node name="Soldier" type="RigidBody3D" node_paths=PackedStringArray("_model")]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_jou6o"]
+height = 0.5
+radius = 2.0
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_58po6"]
+_data = {
+"heavy_attack": ExtResource("5_mxuyb"),
+"idle": ExtResource("6_4rajr"),
+"light_attack": ExtResource("7_rm5c4")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7e48f"]
+animation = &"heavy_attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gbe0t"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k27iq"]
+animation = &"light_attack"
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_1txft"]
+input_0/name = "light"
+input_0/auto_advance = false
+input_0/reset = true
+input_1/name = "heavy"
+input_1/auto_advance = false
+input_1/reset = true
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_tb671"]
+fadeout_time = 0.2
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_8xa81"]
+nodes/a_heavy_attack/node = SubResource("AnimationNodeAnimation_7e48f")
+nodes/a_heavy_attack/position = Vector2(-540, 340)
+nodes/a_idle/node = SubResource("AnimationNodeAnimation_gbe0t")
+nodes/a_idle/position = Vector2(-420, -20)
+nodes/a_light_attack/node = SubResource("AnimationNodeAnimation_k27iq")
+nodes/a_light_attack/position = Vector2(-480, 180)
+nodes/attack_state/node = SubResource("AnimationNodeTransition_1txft")
+nodes/attack_state/position = Vector2(-240, 240)
+nodes/o_attack/node = SubResource("AnimationNodeOneShot_tb671")
+nodes/o_attack/position = Vector2(-35.24, 55.35)
+node_connections = [&"attack_state", 0, &"a_light_attack", &"attack_state", 1, &"a_heavy_attack", &"o_attack", 0, &"a_idle", &"o_attack", 1, &"attack_state", &"output", 0, &"o_attack"]
+
+[node name="Chef" type="RigidBody3D" node_paths=PackedStringArray("_model", "_weapon_detection_area", "_weapon_detection_shape", "_animation_tree", "_weapon_slot")]
 lock_rotation = true
 continuous_cd = true
 script = ExtResource("1_dhlkj")
 _model = NodePath("Model")
 _speed = 1000.0
+_weapon_detection_area = NodePath("WeaponDetectionArea")
+_weapon_detection_shape = NodePath("WeaponDetectionArea/CollisionShape3D")
+_animation_tree = NodePath("AnimationTree")
+_weapon_slot = NodePath("Model/Hand/WeaponSlot")
 
 [node name="Model" type="Node3D" parent="."]
 
-[node name="salaryman" parent="Model" instance=ExtResource("2_bix6y")]
+[node name="soldier" parent="Model" instance=ExtResource("2_bmecx")]
 
 [node name="SmoothFollow3D" type="Node" parent="Model" node_paths=PackedStringArray("_source")]
 script = ExtResource("3_eqwsl")
 _source = NodePath("../..")
 _lerp_speed = 20.0
 
+[node name="Hand" type="Node3D" parent="Model"]
+transform = Transform3D(0.998246, 0.0501674, -0.0314442, -0.0260409, 0.848978, 0.527785, 0.0531731, -0.526041, 0.848795, 0.296991, 0.953142, 0.0104785)
+
+[node name="WeaponSlot" type="Node3D" parent="Model/Hand"]
+script = ExtResource("4_r2q6u")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 shape = SubResource("CapsuleShape3D_20t4t")
+
+[node name="WeaponDetectionArea" type="Area3D" parent="."]
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WeaponDetectionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("CylinderShape3D_jou6o")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_58po6")
+}
+tree_root = SubResource("AnimationNodeBlendTree_8xa81")
+anim_player = NodePath("../AnimationPlayer")
+parameters/attack_state/current_state = "light"
+parameters/attack_state/transition_request = ""
+parameters/attack_state/current_index = 0
+parameters/o_attack/active = false
+parameters/o_attack/internal_active = false
+parameters/o_attack/request = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_58po6")
+}
