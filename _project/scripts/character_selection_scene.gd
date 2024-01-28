@@ -8,6 +8,8 @@ enum State { SELECTING, COUNTING, STARTING }
 @export var _position_root: Node3D
 @export var _slots_parent: Node3D
 @export var _player_selections_parent: Node
+@export var _player_ui: Array[Dictionary]
+@export var _title_rect: Control
 ## Range between characters in world coords
 @export var _step: float = 1
 @export var _countdown: int = 5
@@ -18,19 +20,27 @@ var _min_players: int
 var _current_countdown: float = 0
 
 
+func _ready() -> void:
+	_title_rect.visible = false
+
+
 func _process(delta: float) -> void:
 	match _state:
 		State.SELECTING:
 			if _is_ready_to_start():
 				_current_countdown = _countdown
 				_state = State.COUNTING
+				_title_rect.visible = true
 
 		State.COUNTING:
 			if !_is_ready_to_start():
 				_state = State.SELECTING
+				_title_rect.visible = false
 				return
 
 			_current_countdown -= delta
+			var percentage: float = 1 - _current_countdown / _countdown
+			_title_rect.scale = Vector2(percentage, percentage)
 			print("Countdown: %.2f" % _current_countdown)
 			if _current_countdown <= 0:
 				_state = State.STARTING
@@ -76,6 +86,10 @@ func initialize(min_players: int, max_players: int) -> void:
 		var player: PlayerSelection = PlayerSelection.new()
 		_player_selections_parent.add_child(player)
 		_player_selections[i] = player
+
+	for i in range(_player_ui.size()):
+		get_node(_player_ui[i]["player_icon"]).visible = false
+		get_node(_player_ui[i]["ready_icon"]).visible = false
 
 
 func _compile_player_selections() -> Dictionary:
@@ -126,6 +140,8 @@ func _on_player_disconnect(id: int) -> void:
 	player.state = PlayerSelection.State.DISCONNECTED
 	_despawn_player_character(id)
 	player.character_index = 0
+	get_node(_player_ui[id]["player_icon"]).visible = false
+	get_node(_player_ui[id]["ready_icon"]).visible = false
 
 	_state = State.SELECTING
 
@@ -146,9 +162,11 @@ func _on_confirm(id: int) -> void:
 		PlayerSelection.State.SELECTING:
 			print("player %d is ready" % id)
 			player.state = PlayerSelection.State.READY
+			get_node(_player_ui[id]["ready_icon"]).visible = true
 		PlayerSelection.State.READY:
 			print("player %d is selecting" % id)
 			player.state = PlayerSelection.State.SELECTING
+			get_node(_player_ui[id]["ready_icon"]).visible = false
 		_:
 			return
 
@@ -163,6 +181,8 @@ func _on_start(id: int) -> void:
 
 	print("player %d is selecting" % id)
 	player.state = PlayerSelection.State.SELECTING
+
+	get_node(_player_ui[id]["player_icon"]).visible = true
 	_spawn_player_character(id)
 
 
