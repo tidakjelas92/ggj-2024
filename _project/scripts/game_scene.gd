@@ -9,6 +9,14 @@ enum State { STARTING, PLAYING, DONE }
 @export var _players_parent: Node
 @export var _respawn_points: Array[Node3D]
 @export var _weapon_spawner_timer: Timer
+@export var _game_controls_canvas: CanvasLayer
+@export var _game_ui_canvas: CanvasLayer
+@export var _end_game_controls_canvas: CanvasLayer
+@export var _starting_canvas: CanvasLayer
+@export var _starting_texture_rect: TextureRect
+@export var _countdown_textures: Array[Texture2D]
+@export var _player_ui: Array[Dictionary]
+@export var _decision_icons: Dictionary
 var max_lives: int
 var respawn_time: float
 var weapon_spawn_interval: float
@@ -26,6 +34,10 @@ func _ready() -> void:
 	_current_starting_time = starting_time
 	_weapon_picker = RandomPicker.new()
 	_weapon_spawner_timer.timeout.connect(_spawn_random_weapon)
+	_game_controls_canvas.visible = false
+	_game_ui_canvas.visible = false
+	_end_game_controls_canvas.visible = false
+	_starting_canvas.visible = false
 
 
 func _process(delta: float) -> void:
@@ -38,11 +50,28 @@ func _process(delta: float) -> void:
 			_on_done()
 
 
+func _physics_process(_delta: float) -> void:
+	for i in range(_players.size()):
+		var player: Player = _players[i]
+		var player_ui: Dictionary = _player_ui[i]
+
+		get_node(player_ui["live_label"]).text = "x%d" % player.lives
+		get_node(player_ui["multiplier_label"]).text = "%.2f%%" % (player.force_multiplier * 3)
+		get_node(player_ui["decision_icon"]).texture = _decision_icons[player.end_game_decision]
+
+
 func _on_starting(delta: float) -> void:
 	_current_starting_time -= delta
+
+	_starting_texture_rect.texture = _countdown_textures[floori(_current_starting_time)]
+
 	if _current_starting_time <= 0:
 		_state = State.PLAYING
 		_weapon_spawner_timer.start()
+		_game_controls_canvas.visible = true
+		_game_ui_canvas.visible = true
+		_end_game_controls_canvas.visible = false
+		_starting_canvas.visible = false
 
 
 func _on_playing(delta: float) -> void:
@@ -69,6 +98,10 @@ func _on_playing(delta: float) -> void:
 		_state = State.DONE
 		_winner = last_alive
 		_finish_game()
+		_game_controls_canvas.visible = false
+		_game_ui_canvas.visible = true
+		_end_game_controls_canvas.visible = true
+		_starting_canvas.visible = false
 
 
 func _on_done() -> void:
@@ -92,6 +125,9 @@ func initialize(player_selections: Dictionary) -> void:
 	print(player_selections)
 	var player_count: int = player_selections.size()
 	_players.resize(player_count)
+
+	for i in range(_player_ui.size()):
+		get_node(_player_ui[i]["bar"]).visible = false
 
 	for key in player_selections.keys():
 		var player: Player = Player.new()
@@ -118,6 +154,8 @@ func initialize(player_selections: Dictionary) -> void:
 		player_input.cancel.connect(decide_quit_closure)
 		player_input.attack_light.connect(light_attack_closure)
 		player_input.attack_heavy.connect(heavy_attack_closure)
+
+		get_node(_player_ui[key]["bar"]).visible = true
 
 	_weapon_spawner_timer.wait_time = weapon_spawn_interval
 	_weapon_picker.set_pool(Data.weapon_library.weapons)
@@ -210,6 +248,10 @@ func _spawn_player_character(id: int) -> void:
 func _start_game() -> void:
 	_current_starting_time = starting_time
 	_state = State.STARTING
+	_starting_canvas.visible = true
+	_game_ui_canvas.visible = false
+	_game_controls_canvas.visible = true
+	_end_game_controls_canvas.visible = false
 
 
 func _spawn_random_weapon() -> void:

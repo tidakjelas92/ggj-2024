@@ -1,17 +1,61 @@
-[gd_scene load_steps=6 format=3 uid="uid://dbgppvanvatqw"]
+[gd_scene load_steps=16 format=3 uid="uid://dbgppvanvatqw"]
 
 [ext_resource type="Script" path="res://_project/scripts/game_scene.gd" id="1_wu6qs"]
+[ext_resource type="Texture2D" uid="uid://cm4883qr67boq" path="res://assets/sprites/1_512.png" id="2_668wb"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="2_pbnsh"]
 [ext_resource type="Environment" uid="uid://1n130jbr0ire" path="res://_project/scenes/Game/game_environment.tres" id="2_xjoun"]
+[ext_resource type="Texture2D" uid="uid://b65okdlwqv33k" path="res://assets/sprites/2_512.png" id="3_0bota"]
 [ext_resource type="LightmapGIData" uid="uid://dvitw0eqv3vna" path="res://_project/scenes/Game/Game.lmbake" id="4_1jmjs"]
+[ext_resource type="Texture2D" uid="uid://datw6pm7muf8h" path="res://assets/sprites/3_512.png" id="4_xygxc"]
 [ext_resource type="PackedScene" uid="uid://vqqnqi5y2loe" path="res://_project/prefabs/Arena.tscn" id="6_2y6li"]
+[ext_resource type="Texture2D" uid="uid://b4rdew3lo3vs" path="res://assets/sprites/exit_90.png" id="6_xg3ip"]
+[ext_resource type="Texture2D" uid="uid://gt0ps4vuj1sx" path="res://assets/sprites/p1_bar_256.png" id="9_vesrh"]
+[ext_resource type="Texture2D" uid="uid://ceos177rs4sxw" path="res://assets/sprites/play_90.png" id="10_gyp4t"]
+[ext_resource type="Texture2D" uid="uid://dlvpahplbed1o" path="res://assets/sprites/p2_bar_256.png" id="11_ek35v"]
+[ext_resource type="Texture2D" uid="uid://bjahoygcyxigt" path="res://assets/sprites/p3_bar_256.png" id="12_u2j3a"]
+[ext_resource type="Texture2D" uid="uid://cqu814h0ttml2" path="res://assets/sprites/p4_bar_256.png" id="13_t158s"]
 
-[node name="Game" type="Node3D" node_paths=PackedStringArray("_pcam", "_players_parent", "_respawn_points", "_weapon_spawner_timer")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dnb1q"]
+bg_color = Color(0.129412, 0.129412, 0.129412, 1)
+
+[node name="Game" type="Node3D" node_paths=PackedStringArray("_pcam", "_players_parent", "_respawn_points", "_weapon_spawner_timer", "_game_controls_canvas", "_game_ui_canvas", "_end_game_controls_canvas", "_starting_canvas", "_starting_texture_rect")]
 script = ExtResource("1_wu6qs")
 _pcam = NodePath("PhantomCamera3D")
 _players_parent = NodePath("Players")
 _respawn_points = [NodePath("RespawnPoints/0"), NodePath("RespawnPoints/1"), NodePath("RespawnPoints/2"), NodePath("RespawnPoints/3")]
 _weapon_spawner_timer = NodePath("WeaponSpawnerTimer")
+_game_controls_canvas = NodePath("GameControlsUI")
+_game_ui_canvas = NodePath("GameUI")
+_end_game_controls_canvas = NodePath("EndGameControlsUI")
+_starting_canvas = NodePath("StartingUI")
+_starting_texture_rect = NodePath("StartingUI/TextureRect")
+_countdown_textures = Array[Texture]([ExtResource("2_668wb"), ExtResource("3_0bota"), ExtResource("4_xygxc")])
+_player_ui = Array[Dictionary]([{
+"bar": NodePath("GameUI/HBoxContainer/TextureRect"),
+"decision_icon": NodePath("GameUI/HBoxContainer/TextureRect/TextureRect2"),
+"live_label": NodePath("GameUI/HBoxContainer/TextureRect/Label"),
+"multiplier_label": NodePath("GameUI/HBoxContainer/TextureRect/Label2")
+}, {
+"bar": NodePath("GameUI/HBoxContainer/TextureRect2"),
+"decision_icon": NodePath("GameUI/HBoxContainer/TextureRect2/TextureRect3"),
+"live_label": NodePath("GameUI/HBoxContainer/TextureRect2/Label"),
+"multiplier_label": NodePath("GameUI/HBoxContainer/TextureRect2/Label2")
+}, {
+"bar": NodePath("GameUI/HBoxContainer/TextureRect3"),
+"decision_icon": NodePath("GameUI/HBoxContainer/TextureRect3/TextureRect4"),
+"live_label": NodePath("GameUI/HBoxContainer/TextureRect3/Label"),
+"multiplier_label": NodePath("GameUI/HBoxContainer/TextureRect3/Label2")
+}, {
+"bar": NodePath("GameUI/HBoxContainer/TextureRect4"),
+"decision_icon": NodePath("GameUI/HBoxContainer/TextureRect4/TextureRect5"),
+"live_label": NodePath("GameUI/HBoxContainer/TextureRect4/Label"),
+"multiplier_label": NodePath("GameUI/HBoxContainer/TextureRect4/Label2")
+}])
+_decision_icons = {
+0: null,
+1: ExtResource("10_gyp4t"),
+2: ExtResource("6_xg3ip")
+}
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_xjoun")
@@ -73,3 +117,234 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.29653, 0, 2.45101)
 [node name="Center" type="Node3D" parent="."]
 
 [node name="WeaponSpawnerTimer" type="Timer" parent="."]
+
+[node name="StartingUI" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="StartingUI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(0, 256)
+
+[node name="GameControlsUI" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="GameControlsUI"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dnb1q")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameControlsUI/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Label" type="Label" parent="GameControlsUI/PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "[Left joystick]: Move"
+
+[node name="Label2" type="Label" parent="GameControlsUI/PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "[Right joystick]: Aim"
+
+[node name="Label4" type="Label" parent="GameControlsUI/PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "[A]: Pickup weapon"
+
+[node name="Label3" type="Label" parent="GameControlsUI/PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "[L-Shoulder]: Light attack"
+
+[node name="Label5" type="Label" parent="GameControlsUI/PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "[R-Shoulder]: Heavy attack"
+
+[node name="GameUI" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameUI"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_constants/separation = 80
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="GameUI/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_vesrh")
+stretch_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="GameUI/HBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -64.0
+offset_top = -50.0
+offset_right = 64.0
+offset_bottom = 40.0
+grow_horizontal = 2
+texture = ExtResource("10_gyp4t")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="GameUI/HBoxContainer/TextureRect"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 59.0
+offset_right = 83.0
+offset_bottom = 126.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+
+[node name="Label2" type="Label" parent="GameUI/HBoxContainer/TextureRect"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 60.0
+offset_right = 219.0
+offset_bottom = 127.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+
+[node name="TextureRect2" type="TextureRect" parent="GameUI/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("11_ek35v")
+stretch_mode = 3
+
+[node name="TextureRect3" type="TextureRect" parent="GameUI/HBoxContainer/TextureRect2"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -64.0
+offset_top = -50.0
+offset_right = 64.0
+offset_bottom = 40.0
+grow_horizontal = 2
+texture = ExtResource("10_gyp4t")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="GameUI/HBoxContainer/TextureRect2"]
+offset_left = 43.0
+offset_top = 59.0
+offset_right = 83.0
+offset_bottom = 126.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+
+[node name="Label2" type="Label" parent="GameUI/HBoxContainer/TextureRect2"]
+offset_left = 120.0
+offset_top = 60.0
+offset_right = 219.0
+offset_bottom = 127.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+
+[node name="TextureRect3" type="TextureRect" parent="GameUI/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_u2j3a")
+stretch_mode = 3
+
+[node name="TextureRect4" type="TextureRect" parent="GameUI/HBoxContainer/TextureRect3"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -64.0
+offset_top = -50.0
+offset_right = 64.0
+offset_bottom = 40.0
+grow_horizontal = 2
+texture = ExtResource("10_gyp4t")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="GameUI/HBoxContainer/TextureRect3"]
+offset_left = 43.0
+offset_top = 59.0
+offset_right = 83.0
+offset_bottom = 126.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+
+[node name="Label2" type="Label" parent="GameUI/HBoxContainer/TextureRect3"]
+offset_left = 120.0
+offset_top = 60.0
+offset_right = 219.0
+offset_bottom = 127.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+
+[node name="TextureRect4" type="TextureRect" parent="GameUI/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("13_t158s")
+stretch_mode = 3
+
+[node name="TextureRect5" type="TextureRect" parent="GameUI/HBoxContainer/TextureRect4"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -64.0
+offset_top = -50.0
+offset_right = 64.0
+offset_bottom = 40.0
+grow_horizontal = 2
+texture = ExtResource("10_gyp4t")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="GameUI/HBoxContainer/TextureRect4"]
+offset_left = 43.0
+offset_top = 59.0
+offset_right = 83.0
+offset_bottom = 126.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 48
+
+[node name="Label2" type="Label" parent="GameUI/HBoxContainer/TextureRect4"]
+offset_left = 120.0
+offset_top = 60.0
+offset_right = 219.0
+offset_bottom = 127.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+
+[node name="EndGameControlsUI" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="EndGameControlsUI"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dnb1q")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EndGameControlsUI/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Label" type="Label" parent="EndGameControlsUI/PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "[A]: Replay"
+
+[node name="Label5" type="Label" parent="EndGameControlsUI/PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "[B]: Quit"
