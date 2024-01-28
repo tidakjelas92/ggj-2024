@@ -10,7 +10,6 @@
 script = ExtResource("1_gnll8")
 _character_selection_prefab = ExtResource("3_d80lw")
 _game_prefab = ExtResource("3_uhrqu")
-_max_lives = 1
 _respawn_time = 5.0
 
 [node name="PhantomCameraHost" type="Camera3D" parent="."]
