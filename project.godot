@@ -20,6 +20,14 @@ config/icon="res://icon.svg"
 Controller="*res://_project/scripts/controller_manager.gd"
 Data="*res://_project/scripts/game_data.gd"
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/stretch/scale=0.8
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
