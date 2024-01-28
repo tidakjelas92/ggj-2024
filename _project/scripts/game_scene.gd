@@ -17,6 +17,7 @@ enum State { STARTING, PLAYING, DONE }
 @export var _countdown_textures: Array[Texture2D]
 @export var _player_ui: Array[Dictionary]
 @export var _decision_icons: Dictionary
+@export var _die_sfx: AudioStream
 var max_lives: int
 var respawn_time: float
 var weapon_spawn_interval: float
@@ -132,6 +133,12 @@ func initialize(player_selections: Dictionary) -> void:
 	for key in player_selections.keys():
 		var player: Player = Player.new()
 		_players_parent.add_child(player)
+
+		var audio_player: AudioStreamPlayer = AudioStreamPlayer.new()
+		audio_player.stream = _die_sfx
+		audio_player.volume_db = -10
+		player.add_child(audio_player)
+		player.audio_player = audio_player
 
 		var erase_follow_closure: Callable = func() -> void: _unregister_camera_follow(key)
 		player.lives = max_lives

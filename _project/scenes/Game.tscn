@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dbgppvanvatqw"]
+[gd_scene load_steps=18 format=3 uid="uid://dbgppvanvatqw"]
 
 [ext_resource type="Script" path="res://_project/scripts/game_scene.gd" id="1_wu6qs"]
 [ext_resource type="Texture2D" uid="uid://cm4883qr67boq" path="res://assets/sprites/1_512.png" id="2_668wb"]
@@ -9,11 +9,13 @@
 [ext_resource type="Texture2D" uid="uid://datw6pm7muf8h" path="res://assets/sprites/3_512.png" id="4_xygxc"]
 [ext_resource type="PackedScene" uid="uid://vqqnqi5y2loe" path="res://_project/prefabs/Arena.tscn" id="6_2y6li"]
 [ext_resource type="Texture2D" uid="uid://b4rdew3lo3vs" path="res://assets/sprites/exit_90.png" id="6_xg3ip"]
+[ext_resource type="AudioStream" uid="uid://damjmp3csgtcu" path="res://assets/sfx/jixaw-metal-pipe-falling-sound.mp3" id="7_c2aau"]
 [ext_resource type="Texture2D" uid="uid://gt0ps4vuj1sx" path="res://assets/sprites/p1_bar_256.png" id="9_vesrh"]
 [ext_resource type="Texture2D" uid="uid://ceos177rs4sxw" path="res://assets/sprites/play_90.png" id="10_gyp4t"]
 [ext_resource type="Texture2D" uid="uid://dlvpahplbed1o" path="res://assets/sprites/p2_bar_256.png" id="11_ek35v"]
 [ext_resource type="Texture2D" uid="uid://bjahoygcyxigt" path="res://assets/sprites/p3_bar_256.png" id="12_u2j3a"]
 [ext_resource type="Texture2D" uid="uid://cqu814h0ttml2" path="res://assets/sprites/p4_bar_256.png" id="13_t158s"]
+[ext_resource type="AudioStream" uid="uid://ckcgm6pblbasb" path="res://assets/bgm/Lets_fing_go.mp3" id="15_qpwp0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dnb1q"]
 bg_color = Color(0.129412, 0.129412, 0.129412, 1)
@@ -56,6 +58,7 @@ _decision_icons = {
 1: ExtResource("10_gyp4t"),
 2: ExtResource("6_xg3ip")
 }
+_die_sfx = ExtResource("7_c2aau")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_xjoun")
@@ -348,3 +351,8 @@ text = "[A]: Replay"
 [node name="Label5" type="Label" parent="EndGameControlsUI/PanelContainer/HBoxContainer"]
 layout_mode = 2
 text = "[B]: Quit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_qpwp0")
+volume_db = -10.0
+autoplay = true

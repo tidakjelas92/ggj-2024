@@ -1,15 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://cva8y2bq41y0g"]
+[gd_scene load_steps=5 format=3 uid="uid://cva8y2bq41y0g"]
 
 [ext_resource type="Script" path="res://_project/scripts/weapon.gd" id="1_qodjq"]
 [ext_resource type="PackedScene" uid="uid://bhusjtf5xthgo" path="res://assets/models/gun.gltf" id="2_05wfl"]
+[ext_resource type="AudioStream" uid="uid://sbyaumncgmjm" path="res://assets/sfx/Beat1.mp3" id="3_733t6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wjpyg"]
 size = Vector3(0.351807, 0.33374, 0.527344)
 
-[node name="Grenade" type="Area3D" node_paths=PackedStringArray("_collision_shape")]
+[node name="Gun" type="Area3D" node_paths=PackedStringArray("_collision_shape", "_audio_stream_player")]
 monitorable = false
 script = ExtResource("1_qodjq")
 _collision_shape = NodePath("CollisionShape3D")
+_audio_stream_player = NodePath("AudioStreamPlayer")
 
 [node name="gun" parent="." instance=ExtResource("2_05wfl")]
 
@@ -17,3 +19,6 @@ _collision_shape = NodePath("CollisionShape3D")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.113593, 0)
 shape = SubResource("BoxShape3D_wjpyg")
 disabled = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_733t6")

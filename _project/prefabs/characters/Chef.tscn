@@ -77,7 +77,7 @@ _source = NodePath("../..")
 _lerp_speed = 20.0
 
 [node name="Hand" type="Node3D" parent="Model"]
-transform = Transform3D(0.991324, 0.131436, -0.00112004, -0.120795, 0.914359, 0.386466, 0.0518196, -0.382978, 0.922303, 0.296991, 0.939961, 0.0104785)
+transform = Transform3D(0.990592, 0.136849, 0.000557972, -0.126854, 0.916698, 0.37891, 0.0513422, -0.375416, 0.925433, 0.296991, 0.911259, 0.0104785)
 
 [node name="WeaponSlot" type="Node3D" parent="Model/Hand"]
 script = ExtResource("4_dcke5")

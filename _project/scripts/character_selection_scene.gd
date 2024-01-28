@@ -13,6 +13,9 @@ enum State { SELECTING, COUNTING, STARTING }
 ## Range between characters in world coords
 @export var _step: float = 1
 @export var _countdown: int = 5
+@export var _sfx_audio_player: AudioStreamPlayer
+@export var _select_sfx: AudioStream
+@export var _confirm_sfx: AudioStream
 var _state: State = State.SELECTING
 var _player_slots: Array[Slot]
 var _player_selections: Array[PlayerSelection]
@@ -163,6 +166,8 @@ func _on_confirm(id: int) -> void:
 			print("player %d is ready" % id)
 			player.state = PlayerSelection.State.READY
 			get_node(_player_ui[id]["ready_icon"]).visible = true
+			_sfx_audio_player.stream = _confirm_sfx
+			_sfx_audio_player.play()
 		PlayerSelection.State.READY:
 			print("player %d is selecting" % id)
 			player.state = PlayerSelection.State.SELECTING
@@ -199,6 +204,8 @@ func _next_character(id: int) -> void:
 
 	player.character_index = char_index
 	_spawn_player_character(id)
+	_sfx_audio_player.stream = _select_sfx
+	_sfx_audio_player.play()
 
 
 func _previous_character(id: int) -> void:
@@ -214,6 +221,9 @@ func _previous_character(id: int) -> void:
 
 	player.character_index = char_index
 	_spawn_player_character(id)
+
+	_sfx_audio_player.stream = _select_sfx
+	_sfx_audio_player.play()
 
 
 func _spawn_player_character(id: int) -> void:

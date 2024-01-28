@@ -1,16 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://pmhtfm58ltmn"]
+[gd_scene load_steps=5 format=3 uid="uid://pmhtfm58ltmn"]
 
 [ext_resource type="Script" path="res://_project/scripts/weapon.gd" id="1_81hy1"]
 [ext_resource type="PackedScene" uid="uid://eq06bst235sk" path="res://assets/models/comically-large-spoon.gltf" id="2_p7l47"]
+[ext_resource type="AudioStream" uid="uid://dv525y5672dda" path="res://assets/sfx/MetalPipeClash.mp3" id="3_hk841"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_jfvis"]
 height = 3.94268
 radius = 0.431521
 
-[node name="ComicallyLargeSpoon" type="Area3D" node_paths=PackedStringArray("_collision_shape")]
+[node name="ComicallyLargeSpoon" type="Area3D" node_paths=PackedStringArray("_collision_shape", "_audio_stream_player")]
 monitorable = false
 script = ExtResource("1_81hy1")
 _collision_shape = NodePath("CollisionShape3D")
+_audio_stream_player = NodePath("AudioStreamPlayer")
 
 [node name="comically-large-spoon" parent="." instance=ExtResource("2_p7l47")]
 
@@ -18,3 +20,6 @@ _collision_shape = NodePath("CollisionShape3D")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.86237, 0)
 shape = SubResource("CylinderShape3D_jfvis")
 disabled = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_hk841")

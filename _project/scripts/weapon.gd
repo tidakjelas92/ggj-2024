@@ -6,6 +6,7 @@ signal durability_depleted
 enum Damage { LIGHT, HEAVY }
 
 @export var _collision_shape: CollisionShape3D
+@export var _audio_stream_player: AudioStreamPlayer
 var light_damage: float
 var heavy_damage: float
 var current_damage_type: Damage
@@ -50,3 +51,5 @@ func _on_hitbox_enter(body: Node3D) -> void:
 			character.take_damage.call(light_damage, direction)
 		Damage.HEAVY:
 			character.take_damage.call(heavy_damage, direction)
+
+	_audio_stream_player.play()

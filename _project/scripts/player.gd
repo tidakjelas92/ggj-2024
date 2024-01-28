@@ -14,6 +14,7 @@ var character: CharacterController
 var state: State
 var current_respawn_time: float
 var end_game_decision: EndGameDecision
+var audio_player: AudioStreamPlayer
 
 
 func destroy_weapon() -> void:
@@ -73,6 +74,8 @@ func _on_die() -> void:
 		state = State.DEAD
 	else:
 		state = State.RESPAWNING
+
+	audio_player.play()
 
 
 func _take_damage(damage: float, direction: Vector3) -> void:

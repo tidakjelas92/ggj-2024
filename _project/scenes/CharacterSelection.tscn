@@ -1,9 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://b1s17awm684mc"]
+[gd_scene load_steps=16 format=3 uid="uid://b1s17awm684mc"]
 
 [ext_resource type="Script" path="res://_project/scripts/character_selection_scene.gd" id="1_8y1u5"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3D.gd" id="1_61fvt"]
+[ext_resource type="AudioStream" uid="uid://t3rpd0pa08b0" path="res://assets/sfx/Select.mp3" id="2_fbqpu"]
 [ext_resource type="PackedScene" uid="uid://bsxke5nwcoelo" path="res://_project/prefabs/Backdrop.tscn" id="2_h7px5"]
 [ext_resource type="Environment" uid="uid://bwksjlvtegj8w" path="res://_project/scenes/CharacterSelection/character_selection_environment.tres" id="2_od6mb"]
+[ext_resource type="AudioStream" uid="uid://4iodoaub5x1p" path="res://assets/sfx/Confirm.mp3" id="3_e5jtw"]
 [ext_resource type="LightmapGIData" uid="uid://b65a6opakqkgo" path="res://_project/scenes/CharacterSelection/CharacterSelection.lmbake" id="4_yo12h"]
 [ext_resource type="Texture2D" uid="uid://ceos177rs4sxw" path="res://assets/sprites/play_90.png" id="6_6riwu"]
 [ext_resource type="Texture2D" uid="uid://b1hp25nta3k0w" path="res://assets/sprites/p1_128.png" id="6_dl2fe"]
@@ -11,11 +13,12 @@
 [ext_resource type="Texture2D" uid="uid://ux5sliub74as" path="res://assets/sprites/p2_128.png" id="7_v8m84"]
 [ext_resource type="Texture2D" uid="uid://tudg340t1xi0" path="res://assets/sprites/p3_128.png" id="8_gefso"]
 [ext_resource type="Texture2D" uid="uid://brg0aaopvf0os" path="res://assets/sprites/p4_128.png" id="9_qijmi"]
+[ext_resource type="AudioStream" uid="uid://cn1v66nbnir2x" path="res://assets/bgm/Lets_fing_chill.mp3" id="12_o6sw0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_loquy"]
 bg_color = Color(0.129412, 0.129412, 0.129412, 1)
 
-[node name="CharacterSelection" type="Node3D" node_paths=PackedStringArray("_position_root", "_slots_parent", "_player_selections_parent", "_title_rect")]
+[node name="CharacterSelection" type="Node3D" node_paths=PackedStringArray("_position_root", "_slots_parent", "_player_selections_parent", "_title_rect", "_sfx_audio_player")]
 script = ExtResource("1_8y1u5")
 _position_root = NodePath("PositionRoot")
 _slots_parent = NodePath("Slots")
@@ -35,6 +38,9 @@ _player_ui = Array[Dictionary]([{
 }])
 _title_rect = NodePath("PlayersUI/Title")
 _step = 1.5
+_sfx_audio_player = NodePath("SFXAudioStreamPlayer")
+_select_sfx = ExtResource("2_fbqpu")
+_confirm_sfx = ExtResource("3_e5jtw")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_od6mb")
@@ -207,3 +213,10 @@ text = "[d-pad right]: Next Character"
 [node name="Label3" type="Label" parent="ControlsUI/PanelContainer/HBoxContainer"]
 layout_mode = 2
 text = "[A]: Toggle ready"
+
+[node name="BGMAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_o6sw0")
+volume_db = -10.0
+autoplay = true
+
+[node name="SFXAudioStreamPlayer" type="AudioStreamPlayer" parent="."]

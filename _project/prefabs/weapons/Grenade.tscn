@@ -1,15 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://nb34k7qdq1cy"]
+[gd_scene load_steps=5 format=3 uid="uid://nb34k7qdq1cy"]
 
 [ext_resource type="Script" path="res://_project/scripts/weapon.gd" id="1_blfrq"]
 [ext_resource type="PackedScene" uid="uid://dpubhd40t4j7l" path="res://assets/models/grenade.gltf" id="1_lhhwr"]
+[ext_resource type="AudioStream" uid="uid://dspy4m75vb2rc" path="res://assets/sfx/Nuke1.mp3" id="3_la74p"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mq6rj"]
 radius = 5.0
 
-[node name="Grenade" type="Area3D" node_paths=PackedStringArray("_collision_shape")]
+[node name="Grenade" type="Area3D" node_paths=PackedStringArray("_collision_shape", "_audio_stream_player")]
 monitorable = false
 script = ExtResource("1_blfrq")
 _collision_shape = NodePath("CollisionShape3D")
+_audio_stream_player = NodePath("AudioStreamPlayer")
 
 [node name="grenade" parent="." instance=ExtResource("1_lhhwr")]
 transform = Transform3D(4.67107, 0, 0, 0, 4.67107, 0, 0, 0, 4.67107, 0, 0, 0)
@@ -18,3 +20,6 @@ transform = Transform3D(4.67107, 0, 0, 0, 4.67107, 0, 0, 0, 4.67107, 0, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.202392, 0)
 shape = SubResource("SphereShape3D_mq6rj")
 disabled = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_la74p")
