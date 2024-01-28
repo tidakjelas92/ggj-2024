@@ -35,6 +35,9 @@ func look_character(rad: float) -> void:
 
 
 func pickup() -> void:
+	if character == null:
+		return
+
 	if !character.has_pickupable():
 		return
 
