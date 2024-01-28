@@ -14,7 +14,7 @@ config/name="ggj-2024"
 config/version="1.0.0"
 run/main_scene="res://_project/scenes/Main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://assets/sprites/icon.png"
+config/icon="res://icon.ico"
 
 [autoload]
 
