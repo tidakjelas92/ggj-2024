@@ -33,6 +33,7 @@ func _process(delta: float) -> void:
 			if _is_ready_to_start():
 				_current_countdown = _countdown
 				_state = State.COUNTING
+				_title_rect.scale = Vector2.ZERO
 				_title_rect.visible = true
 
 		State.COUNTING:
@@ -151,6 +152,7 @@ func _on_player_disconnect(id: int) -> void:
 	player.character_index = 0
 	get_node(_player_ui[id]["player_icon"]).visible = false
 	get_node(_player_ui[id]["ready_icon"]).visible = false
+	_title_rect.visible = false
 
 	_state = State.SELECTING
 
