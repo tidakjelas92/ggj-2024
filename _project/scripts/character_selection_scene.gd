@@ -45,7 +45,6 @@ func _process(delta: float) -> void:
 			_current_countdown -= delta
 			var percentage: float = 1 - _current_countdown / _countdown
 			_title_rect.scale = Vector2(percentage, percentage)
-			print("Countdown: %.2f" % _current_countdown)
 			if _current_countdown <= 0:
 				_state = State.STARTING
 
@@ -171,13 +170,11 @@ func _on_confirm(id: int) -> void:
 	var player: PlayerSelection = _get_player(id)
 	match player.state:
 		PlayerSelection.State.SELECTING:
-			print("player %d is ready" % id)
 			player.state = PlayerSelection.State.READY
 			get_node(_player_ui[id]["ready_icon"]).visible = true
 			_sfx_audio_player.stream = _confirm_sfx
 			_sfx_audio_player.play()
 		PlayerSelection.State.READY:
-			print("player %d is selecting" % id)
 			player.state = PlayerSelection.State.SELECTING
 			get_node(_player_ui[id]["ready_icon"]).visible = false
 		_:
@@ -190,7 +187,6 @@ func _on_start(id: int) -> void:
 		PlayerSelection.State.DISCONNECTED:
 			return
 		PlayerSelection.State.CONNECTED:
-			print("player %d is selecting" % id)
 			player.state = PlayerSelection.State.SELECTING
 
 			get_node(_player_ui[id]["player_icon"]).visible = true
@@ -262,5 +258,4 @@ func _despawn_player_character(id: int) -> void:
 
 
 func _start_game() -> void:
-	print("Character selection start game")
 	start.emit(_compile_player_selections())
