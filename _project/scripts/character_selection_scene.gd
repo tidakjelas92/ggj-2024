@@ -94,6 +94,10 @@ func initialize(min_players: int, max_players: int) -> void:
 		get_node(_player_ui[i]["player_icon"]).visible = false
 		get_node(_player_ui[i]["ready_icon"]).visible = false
 
+	var connected_joypads: Array[int] = Input.get_connected_joypads()
+	for i in range(connected_joypads.size()):
+		_player_selections[connected_joypads[i]].state = PlayerSelection.State.CONNECTED
+
 
 func _compile_player_selections() -> Dictionary:
 	var result: Dictionary = {}
