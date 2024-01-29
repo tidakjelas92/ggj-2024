@@ -31,7 +31,7 @@ _game_ui_canvas = NodePath("GameUI")
 _end_game_controls_canvas = NodePath("EndGameControlsUI")
 _starting_canvas = NodePath("StartingUI")
 _starting_texture_rect = NodePath("StartingUI/TextureRect")
-_countdown_textures = Array[Texture]([ExtResource("2_668wb"), ExtResource("3_0bota"), ExtResource("4_xygxc")])
+_countdown_textures = Array[Texture2D]([ExtResource("2_668wb"), ExtResource("3_0bota"), ExtResource("4_xygxc")])
 _player_ui = Array[Dictionary]([{
 "bar": NodePath("GameUI/HBoxContainer/TextureRect"),
 "decision_icon": NodePath("GameUI/HBoxContainer/TextureRect/TextureRect2"),
@@ -244,6 +244,7 @@ texture = ExtResource("10_gyp4t")
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="GameUI/HBoxContainer/TextureRect2"]
+layout_mode = 0
 offset_left = 43.0
 offset_top = 59.0
 offset_right = 83.0
@@ -252,6 +253,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 48
 
 [node name="Label2" type="Label" parent="GameUI/HBoxContainer/TextureRect2"]
+layout_mode = 0
 offset_left = 120.0
 offset_top = 60.0
 offset_right = 219.0
@@ -278,6 +280,7 @@ texture = ExtResource("10_gyp4t")
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="GameUI/HBoxContainer/TextureRect3"]
+layout_mode = 0
 offset_left = 43.0
 offset_top = 59.0
 offset_right = 83.0
@@ -286,6 +289,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 48
 
 [node name="Label2" type="Label" parent="GameUI/HBoxContainer/TextureRect3"]
+layout_mode = 0
 offset_left = 120.0
 offset_top = 60.0
 offset_right = 219.0
@@ -312,6 +316,7 @@ texture = ExtResource("10_gyp4t")
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="GameUI/HBoxContainer/TextureRect4"]
+layout_mode = 0
 offset_left = 43.0
 offset_top = 59.0
 offset_right = 83.0
@@ -320,6 +325,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 48
 
 [node name="Label2" type="Label" parent="GameUI/HBoxContainer/TextureRect4"]
+layout_mode = 0
 offset_left = 120.0
 offset_top = 60.0
 offset_right = 219.0
